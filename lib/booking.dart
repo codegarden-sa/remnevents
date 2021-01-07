@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'controller/form_controller.dart';
 import 'model/form.dart';
+import 'main.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -16,24 +17,32 @@ class _MyHomePageState extends State<MyHomePage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   // TextField Controllers
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController mobileNoController = TextEditingController();
-  TextEditingController feedbackController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  TextEditingController departmentController = TextEditingController();
+  TextEditingController eventController = TextEditingController();
+  TextEditingController venueController = TextEditingController();
+  //TextEditingController departmentController = TextEditingController();
 
   void _submitForm() {
     if (_formKey.currentState.validate()) {
       FeedbackForm feedbackForm = FeedbackForm(
-          nameController.text,
-          emailController.text,
-          mobileNoController.text,
-          feedbackController.text);
+        startDateController.text,
+        endDateController.text,
+        timeController.text,
+        departmentController.text,
+        eventController.text,
+        venueController.text,
+      );
 
       FormController formController = FormController((String response) {
         print("Response: $response");
         if (response == FormController.STATUS_SUCCESS) {
           //
           _showSnackbar("Feedback Submitted");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Calendar()));
         } else {
           _showSnackbar("Error Occurred!");
         }
@@ -50,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // Method to show snackbar with 'message'.
   _showSnackbar(String message) {
     final snackBar = SnackBar(content: Text(message));
-    _scaffoldKey.currentState.showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -58,70 +67,92 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Booking Page'),
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromRGBO(7, 94, 84, 1.0),
       ),
       key: _scaffoldKey,
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 50, horizontal: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TextFormField(
-                      controller: nameController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Enter Valid Name";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(labelText: "Name"),
-                    ),
-                    TextFormField(
-                      controller: emailController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Enter Valid Email";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(labelText: "Email"),
-                    ),
-                    TextFormField(
-                      controller: mobileNoController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Enter Valid Phone Number";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(labelText: "Phone Number"),
-                    ),
-                    TextFormField(
-                      controller: feedbackController,
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Enter Valid Feedback";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(labelText: "Feedback"),
-                    ),
-                    RaisedButton(
-                      color: Colors.green,
-                      textColor: Colors.white,
-                      onPressed: _submitForm,
-                      child: Text('Submit Feedback'),
-                    )
-                  ],
-                ),
-              )
-            ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 24),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      TextFormField(
+                        controller: startDateController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Valid Name";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "Start Date"),
+                      ),
+                      TextFormField(
+                        controller: endDateController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Valid Email";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "End Date"),
+                      ),
+                      TextFormField(
+                        controller: timeController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Valid Phone Number";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "Time"),
+                      ),
+                      TextFormField(
+                        controller: departmentController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Valid Feedback";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "Department"),
+                      ),
+                      TextFormField(
+                        controller: eventController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Valid Feedback";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "Event"),
+                      ),
+                      TextFormField(
+                        controller: venueController,
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Enter Valid Feedback";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(labelText: "Venue"),
+                      ),
+                      RaisedButton(
+                        color: Color.fromRGBO(7, 94, 84, 1.0),
+                        textColor: Colors.white,
+                        onPressed: _submitForm,
+                        child: Text('Submit Feedback'),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
