@@ -35,6 +35,9 @@ dependencies:
   font_awesome_flutter:
   intl:
   shared_preferences:
+  firebase_auth:
+  firebase_core:
+  google_sign_in:
 
 dev_dependencies:
   flutter_test:

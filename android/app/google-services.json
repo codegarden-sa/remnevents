@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "993988526758",
+    "project_id": "sandtonchurch-c4a57",
+    "storage_bucket": "sandtonchurch-c4a57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993988526758:android:d5298699870d4df8c3aa67",
+        "android_client_info": {
+          "package_name": "com.example.sandtonchurchapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993988526758-n2f30i9b4kjjm8degft06j0hek2ae34i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sandtonchurchapp",
+            "certificate_hash": "cbf3728fa4814d14d5849336fa6f426da4ae6b62"
+          }
+        },
+        {
+          "client_id": "993988526758-2iqp10dpl1dp7kiig5n5pqun1ool6u94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1J1Gr0w85csoMbGxuRT37uGQ0yKjVCOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993988526758-2iqp10dpl1dp7kiig5n5pqun1ool6u94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
