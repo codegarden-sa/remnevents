@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/login_page.dart';
+import 'package:sandtonchurchapp/screens/auth/widgets/sign_in.dart';
 import 'package:sandtonchurchapp/sign_in.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +11,8 @@ import 'events.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import './screens/auth/auth.dart';
+import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 
 //void main() {
 //runApp(MyApp());
@@ -141,17 +144,16 @@ class _CalendarState extends State<Calendar> {
                           fontFamily: 'montserrati', color: Colors.white)),
                   onPressed: () {
                     googleSignIn.signOut();
-                    Navigator.push(
-                        context,
-                        new MaterialPageRoute(
-                            builder: (context) => new LoginPage()));
-                  }),
-              //IconButton(
+                    context.signOut();
+                    Navigator.of(context).push(AuthScreen.route);
+                  }
+                  //IconButton(
 
-              //icon: Icon(Icons.person),
-              //tooltip: 'Logout',
-              //onPressed: () {},
-              //),
+                  //icon: Icon(Icons.person),
+                  //tooltip: 'Logout',
+                  //onPressed: () {},
+                  //),
+                  )
             ],
           ),
           body: ListView(

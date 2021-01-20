@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/login_page.dart';
+import 'package:sandtonchurchapp/screens/splash.dart';
 //import 'package:trans_assist_group/models/colors.dart';
 //import 'package:trans_assist_group/pages/login_page.dart';
 //import 'package:trans_assist_group/pages/people.dart';
@@ -71,7 +72,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           new MaterialPageRoute(
-                              builder: (context) => new LoginPage()));
+                              builder: (context) => const SplashScreen()));
                     },
                     color: Color.fromRGBO(7, 94, 84, 1.0),
                     shape: RoundedRectangleBorder(
