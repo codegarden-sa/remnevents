@@ -19,20 +19,20 @@ class EventModel extends DatabaseItem {
 
   factory EventModel.fromMap(Map data) {
     return EventModel(
-      title: data['eventDescription'],
-      description: data['office'],
+      title: data['title'],
+      description: data['description'],
       eventDate: data['eventDate'],
-      status: data['status'],
+      // status: data['status'],
     );
   }
 
   factory EventModel.fromDS(String id, Map<String, dynamic> data) {
     return EventModel(
       id: id,
-      title: data['eventDescription'],
-      description: data['office'],
+      title: data['title'],
+      description: data['description'],
       eventDate: data['eventDate']?.toDate(),
-      status: data['status'],
+      // status: data['status'],
     );
   }
 
