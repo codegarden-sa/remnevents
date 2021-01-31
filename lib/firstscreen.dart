@@ -274,7 +274,7 @@ class _CalendarState extends State<Calendar> {
                               calendarController: _controller,
                             ),
                             //Text('$_selectedEvents'),
-                            ..._selectedEvents.map((event) => ListTile(
+                            /* ..._selectedEvents.map((event) => ListTile(
                                   title: Text(event.title),
                                   onTap: () {
                                     Navigator.push(
@@ -284,7 +284,7 @@ class _CalendarState extends State<Calendar> {
                                                   event: event,
                                                 )));
                                   },
-                                )),
+                                )), */
                           ],
                         ),
                       ),
@@ -297,7 +297,12 @@ class _CalendarState extends State<Calendar> {
                           fontWeight: FontWeight.bold,
                         )), */
                     ..._selectedEvents.map((event) => ListTile(
-                          title: Text(event.title),
+                          tileColor: Colors.lightGreen,
+                          title: Text(event.title,
+                              style: TextStyle(
+                                  fontFamily: 'montseratti',
+                                  fontSize: 20,
+                                  color: Colors.blue)),
                           onTap: () {
                             Navigator.push(
                                 context,
