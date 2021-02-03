@@ -42,6 +42,8 @@ dependencies:
   animations:
   firebase_helpers:
   datetime_picker_formfield:
+  cloud_firestore:
+  firebase_auth_oauth_web:
 
 dev_dependencies:
   flutter_test:
