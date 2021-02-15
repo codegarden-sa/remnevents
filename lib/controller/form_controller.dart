@@ -1,5 +1,5 @@
 import 'dart:convert' as convert;
-import '../model/form.dart';
+import '../models/form.dart';
 import 'package:http/http.dart' as http;
 
 class FormController {

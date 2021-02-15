@@ -1,6 +1,6 @@
-import '../../model/event.dart';
 import 'package:flutter/material.dart';
 import '../../res/events_firestore_services.dart';
+import 'package:sandtonchurchapp/models/event.dart';
 
 class AddEventPage extends StatefulWidget {
   final EventModel note;

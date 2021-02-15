@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'controller/form_controller.dart';
-import 'model/form.dart';
+import 'models/form.dart';
 import 'firstscreen.dart';
+import 'calendar_events.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //
           _showSnackbar("Feedback Submitted");
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Calendar()));
+              context, MaterialPageRoute(builder: (context) => CalendarEvents()));
         } else {
           _showSnackbar("Error Occurred!");
         }

@@ -1,35 +1,32 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../model/event.dart';
+import 'package:sandtonchurchapp/event_list.dart';
+import 'package:sandtonchurchapp/event_tile.dart';
+import 'package:sandtonchurchapp/res/events_firestore_services.dart';
+// import '../models/event.dart';÷
+import 'package:sandtonchurchapp/models/event.dart';
+import 'package:sandtonchurchapp/services/database.dart';
+import 'package:provider/provider.dart';
 
-class EventDetailsPage extends StatelessWidget {
-  final EventModel event;
 
-  const EventDetailsPage({Key key, this.event}) : super(key: key);
+class ListEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Event details'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              event.title,
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            SizedBox(height: 20.0),
-            Text('More about this event will appear here',
-                style: TextStyle(
-                    fontFamily: 'montseratti',
-                    fontSize: 20,
-                    color: Colors.blue)),
-          ],
-        ),
-      ),
+    print('hello');
+    return Container(
+
+  child: StreamProvider<List<EventModel>>.value(
+    value: DatabaseService().events,
+    child: Container(
+      // color: Colors.green,
+      child: EventList(),
+
+    )
+
+  
+  )
+
     );
   }
 }
