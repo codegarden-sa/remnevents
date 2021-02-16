@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../../../config/palette.dart';
+import '../../../constants/palette.dart';
 
 class BackgroundPainter extends CustomPainter {
   BackgroundPainter({

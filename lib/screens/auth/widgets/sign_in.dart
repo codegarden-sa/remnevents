@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
+import 'package:sandtonchurchapp/screens/calendar/calendar_events.dart';
 import '../../../sign_in.dart';
 import './decoration_functions.dart';
 import './sign_in_up_bar.dart';
-
-import '../../../config/palette.dart';
+import '../../../constants/palette.dart';
 import 'title.dart';
-import 'package:sandtonchurchapp/firstscreen.dart';
-import './sign_in.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import '../auth.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({
@@ -97,7 +93,7 @@ class SignIn extends StatelessWidget {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) {
-                                return MyAppStart();
+                                return CalendarEvents();
                               },
                             ),
                           );

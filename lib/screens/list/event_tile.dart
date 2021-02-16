@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'color_scheme.dart';
+import '../../constants/color_scheme.dart';
 
 class EventTile extends StatelessWidget {
   final EventModel event;

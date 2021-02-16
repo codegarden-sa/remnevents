@@ -2,14 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/login_page.dart';
 import 'package:sandtonchurchapp/screens/splash.dart';
-//import 'package:trans_assist_group/models/colors.dart';
-//import 'package:trans_assist_group/pages/login_page.dart';
-//import 'package:trans_assist_group/pages/people.dart';
-//import 'package:trans_assist_group/screens/wrapper.dart';
-//import '../../pages/people.dart';
-import 'colors.dart';
 
-class HomePage extends StatelessWidget {
+import 'constants/colors.dart';
+
+class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

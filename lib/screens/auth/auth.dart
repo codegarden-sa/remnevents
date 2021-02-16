@@ -2,7 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import '../../config/palette.dart';
+import '../../constants/palette.dart';
 import './widgets/register.dart';
 import './widgets/sign_in.dart';
 import '../home.dart';

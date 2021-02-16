@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart';
-import 'package:sandtonchurchapp/firstscreen.dart';
-
-import 'auth/auth.dart';
-import '../calendar_events.dart';
-import '../color_scheme.dart';
-import '../ui/pages/add_event.dart';
-import '../ui/view_event.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sandtonchurchapp/screens/booking/book_event.dart';
+import 'calendar/calendar_events.dart';
+import '../constants/color_scheme.dart';
+import 'list/view_event.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -31,8 +28,8 @@ class _NavigationState extends State<Navigation> {
 
   List<Widget> _widgetOptions = [
     CalendarEvents(),
-    AddEventPage(),
-    ListEvents()
+    ListEvents(),
+    BookEvent(),
   ];
 
   void _onItemTap(int index) {
@@ -51,30 +48,31 @@ class _NavigationState extends State<Navigation> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: AppColors.darkblue,
+          backgroundColor: AppColors.lightgrey,
           selectedItemColor: AppColors.guava,
           unselectedItemColor: AppColors.grey,
+          
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_filled, size: 30),
-              label: '',
+              icon: FaIcon(FontAwesomeIcons.solidCalendar, size: 20),
+              label: '____',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                Icons.calendar_today,
-                size: 30,
+              icon: FaIcon(
+                FontAwesomeIcons.solidListAlt,
+                size: 20,
               ),
-              label: '',
+              label: '____',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person, size: 30),
-              label: '',
+              icon: FaIcon(FontAwesomeIcons.solidCalendarPlus, size: 20),
+              label: '____',
             ),
           ],
-          type: BottomNavigationBarType.shifting,
+          type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
           onTap: _onItemTap,
-          elevation: 4),
+          elevation: 0),
     );
   }
 }

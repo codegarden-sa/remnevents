@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/event_list.dart';
-import 'package:sandtonchurchapp/event_tile.dart';
-import 'package:sandtonchurchapp/res/events_firestore_services.dart';
+import 'package:sandtonchurchapp/screens/list/event_list.dart';
+import 'package:sandtonchurchapp/screens/list/event_tile.dart';
+import 'package:sandtonchurchapp/services/events_firestore_services.dart';
 // import '../models/event.dart';÷
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/services/database.dart';

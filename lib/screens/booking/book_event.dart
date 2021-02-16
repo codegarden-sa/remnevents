@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'controller/form_controller.dart';
-import 'models/form.dart';
-import 'firstscreen.dart';
-import 'calendar_events.dart';
+import '../../controller/form_controller.dart';
+import '../../models/form.dart';
+import '../calendar/calendar_events.dart';
 
-class MyHomePage extends StatefulWidget {
+class BookEvent extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _BookEventState createState() => _BookEventState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _BookEventState extends State<BookEvent> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -65,13 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Booking Page'),
-        backgroundColor: Color.fromRGBO(7, 94, 84, 1.0),
-      ),
-      key: _scaffoldKey,
-      body: SingleChildScrollView(
+    return Container(
+      child: SingleChildScrollView(
         child: Center(
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 50, horizontal: 24),

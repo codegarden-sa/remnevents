@@ -19,10 +19,10 @@
 // SOFTWARE.
 
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/firstscreen.dart';
+import 'package:sandtonchurchapp/screens/calendar/calendar_events.dart';
 import './sign_in.dart';
 
-import 'booking.dart';
+import 'screens/booking/book_event.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -60,12 +60,12 @@ class _LoginPageState extends State<LoginPage> {
             //Navigator.of(context).push(
             //MaterialPageRoute(
             //builder: (context) {
-            return MyAppStart();
+            return CalendarEvents();
             //},
             //),
             //);
           } else {
-            return MyHomePage();
+            return BookEvent();
           }
         });
       },
