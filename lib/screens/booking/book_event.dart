@@ -41,8 +41,8 @@ class _BookEventState extends State<BookEvent> {
         if (response == FormController.STATUS_SUCCESS) {
           //
           _showSnackbar("Feedback Submitted");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => CalendarEvents()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CalendarEvents()));
         } else {
           _showSnackbar("Error Occurred!");
         }
@@ -64,89 +64,91 @@ class _BookEventState extends State<BookEvent> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      TextFormField(
-                        controller: startDateController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Enter Valid Name";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "Start Date"),
-                      ),
-                      TextFormField(
-                        controller: endDateController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Enter Valid Email";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "End Date"),
-                      ),
-                      TextFormField(
-                        controller: timeController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Enter Valid Phone Number";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "Time"),
-                      ),
-                      TextFormField(
-                        controller: departmentController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Enter Valid Feedback";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "Department"),
-                      ),
-                      TextFormField(
-                        controller: eventController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Enter Valid Feedback";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "Event"),
-                      ),
-                      TextFormField(
-                        controller: venueController,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Enter Valid Feedback";
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(labelText: "Venue"),
-                      ),
-                      RaisedButton(
-                        color: Color.fromRGBO(7, 94, 84, 1.0),
-                        textColor: Colors.white,
-                        onPressed: _submitForm,
-                        child: Text('Submit Feedback'),
-                      )
-                    ],
-                  ),
-                )
-              ],
+    return Scaffold(
+          body: Container(
+        child: SingleChildScrollView(
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 50, horizontal: 24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        TextFormField(
+                          controller: startDateController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Enter Valid Name";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "Start Date"),
+                        ),
+                        TextFormField(
+                          controller: endDateController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Enter Valid Email";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "End Date"),
+                        ),
+                        TextFormField(
+                          controller: timeController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Enter Valid Phone Number";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "Time"),
+                        ),
+                        TextFormField(
+                          controller: departmentController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Enter Valid Feedback";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "Department"),
+                        ),
+                        TextFormField(
+                          controller: eventController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Enter Valid Feedback";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "Event"),
+                        ),
+                        TextFormField(
+                          controller: venueController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Enter Valid Feedback";
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(labelText: "Venue"),
+                        ),
+                        RaisedButton(
+                          color: Color.fromRGBO(7, 94, 84, 1.0),
+                          textColor: Colors.white,
+                          onPressed: _submitForm,
+                          child: Text('Submit Feedback'),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

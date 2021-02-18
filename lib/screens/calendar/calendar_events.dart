@@ -166,17 +166,17 @@ class _CalendarEventsState extends State<CalendarEvents> {
                   ],
                 );
               }),
-          floatingActionButton: NeumorphicButton(
-            style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape: NeumorphicBoxShape.circle(),
-                depth: 6,
-                lightSource: LightSource.topLeft,
-                color: AppColors.grey),
-            child: NeumorphicIcon(Icons.add, size: 30),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => BookEvent())),
-          ),
+          // floatingActionButton: NeumorphicButton(
+          //   style: NeumorphicStyle(
+          //       shape: NeumorphicShape.flat,
+          //       boxShape: NeumorphicBoxShape.circle(),
+          //       depth: 6,
+          //       lightSource: LightSource.topLeft,
+          //       color: AppColors.grey),
+          //   child: NeumorphicIcon(Icons.add, size: 30),
+          //   onPressed: () => Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) => BookEvent())),
+          // ),
           backgroundColor: Colors.white,
         ),
       ),
