@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '../../constants/color_scheme.dart';
+import '../../constants/constants.dart';
 
 class EventTile extends StatelessWidget {
   final EventModel event;
@@ -10,7 +10,7 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(event);
+    print('::::: ---> {$event.toString()} <----- :::::');
     return Neumorphic(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -19,7 +19,7 @@ class EventTile extends StatelessWidget {
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(6)),
           depth: -1,
           lightSource: LightSource.topLeft,
-          color: AppColors.lightgrey),
+          color: AppConstants.lightgrey),
       child: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -30,7 +30,7 @@ class EventTile extends StatelessWidget {
                   Text(
                     event.title,
                     style: TextStyle(
-                      color: AppColors.grey,
+                      color: AppConstants.grey,
                       fontFamily: 'Montserrat',
                       fontSize: 17,
                       fontWeight: FontWeight.w800,
@@ -62,7 +62,7 @@ class EventTile extends StatelessWidget {
               padding: EdgeInsets.all(2),
               margin: EdgeInsets.all(4),
               decoration: BoxDecoration(
-                  color: AppColors.guava,
+                  color: AppConstants.guava,
                   borderRadius: BorderRadius.all(Radius.circular(100))),
               // width: MediaQuery.of(context).size.width*0.1,
               child: Text(
@@ -80,7 +80,7 @@ class EventTile extends StatelessWidget {
           child: Container(
             // margin: EdgeInsets.only(bottom: 20),
             // padding: EdgeInsets.all(20),
-            color: AppColors.lightgrey,
+            color: AppConstants.lightgrey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -127,7 +127,7 @@ class EventTile extends StatelessWidget {
                               BorderRadius.circular(6)),
                           depth: -2,
                           lightSource: LightSource.topLeft,
-                          color: AppColors.lightgrey),
+                          color: AppConstants.lightgrey),
                       // decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(4))),
                       child: Text(
                         "Local church",

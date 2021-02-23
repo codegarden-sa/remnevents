@@ -1,13 +1,13 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/screens/list/event_tile.dart';
+import 'package:sandtonchurchapp/screens/events/event_tile.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../booking/book_event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/events_firestore_services.dart';
-import '../../constants/color_scheme.dart';
+import '../../constants/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 
@@ -81,36 +81,36 @@ class _CalendarEventsState extends State<CalendarEvents> {
                               initialCalendarFormat: CalendarFormat.month,
                               calendarStyle: CalendarStyle(
                                 canEventMarkersOverflow: true,
-                                markersColor: AppColors.guava,
+                                markersColor: AppConstants.guava,
                                 markersMaxAmount: 1,
                                 weekdayStyle: TextStyle(
-                                    color: AppColors.darkblue, fontSize: 18),
+                                    color: AppConstants.darkblue, fontSize: 18),
                                 todayStyle: TextStyle(
                                     color: Colors.redAccent,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold),
                                 outsideWeekendStyle:
-                                    TextStyle(color: AppColors.darkblue),
+                                    TextStyle(color: AppConstants.darkblue),
                                 outsideStyle:
-                                    TextStyle(color: AppColors.darkblue),
+                                    TextStyle(color: AppConstants.darkblue),
                                 weekendStyle: TextStyle(
-                                    color: AppColors.darkblue, fontSize: 18),
+                                    color: AppConstants.darkblue, fontSize: 18),
                                 renderDaysOfWeek: true,
                               ),
                               daysOfWeekStyle: DaysOfWeekStyle(
                                   weekdayStyle:
-                                      TextStyle(color: AppColors.darkblue),
+                                      TextStyle(color: AppConstants.darkblue),
                                   weekendStyle:
-                                      TextStyle(color: AppColors.darkblue)),
+                                      TextStyle(color: AppConstants.darkblue)),
                               headerStyle: HeaderStyle(
                                 leftChevronIcon: Icon(Icons.arrow_back_ios,
-                                    size: 15, color: AppColors.darkblue),
+                                    size: 15, color: AppConstants.darkblue),
                                 rightChevronIcon: Icon(Icons.arrow_forward_ios,
-                                    size: 15, color: AppColors.darkblue),
+                                    size: 15, color: AppConstants.darkblue),
                                 leftChevronMargin: EdgeInsets.only(left: 70),
                                 rightChevronMargin: EdgeInsets.only(right: 70),
                                 titleTextStyle: GoogleFonts.montserrat(
-                                    color: AppColors.darkblue, fontSize: 16),
+                                    color: AppConstants.darkblue, fontSize: 16),
                                 centerHeaderTitle: true,
                                 formatButtonVisible: false,
                               ),
@@ -128,13 +128,13 @@ class _CalendarEventsState extends State<CalendarEvents> {
                                         margin: const EdgeInsets.all(4.0),
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                            color: AppColors.lightgrey,
+                                            color: AppConstants.lightgrey,
                                             borderRadius:
                                                 BorderRadius.circular(50.0)),
                                         child: Text(
                                           date.day.toString(),
                                           style: TextStyle(
-                                              color: AppColors.darkblue,
+                                              color: AppConstants.darkblue,
                                               fontSize: 18),
                                         )),
                                 todayDayBuilder: (context, date, events) =>
@@ -143,13 +143,13 @@ class _CalendarEventsState extends State<CalendarEvents> {
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
                                             // color:
-                                            //     AppColors.lightgrey,
+                                            //     AppConstants.lightgrey,
                                             borderRadius:
                                                 BorderRadius.circular(50.0)),
                                         child: Text(
                                           date.day.toString(),
                                           style: TextStyle(
-                                              color: AppColors.guava,
+                                              color: AppConstants.guava,
                                               fontSize: 19,
                                               fontWeight: FontWeight.w900),
                                         )),
@@ -172,7 +172,7 @@ class _CalendarEventsState extends State<CalendarEvents> {
           //       boxShape: NeumorphicBoxShape.circle(),
           //       depth: 6,
           //       lightSource: LightSource.topLeft,
-          //       color: AppColors.grey),
+          //       color: AppConstants.grey),
           //   child: NeumorphicIcon(Icons.add, size: 30),
           //   onPressed: () => Navigator.push(context,
           //       MaterialPageRoute(builder: (context) => BookEvent())),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/screens/list/event_tile.dart';
+import 'package:sandtonchurchapp/screens/events/event_tile.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 

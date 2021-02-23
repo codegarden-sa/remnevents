@@ -33,7 +33,7 @@ class SplashScreen extends StatelessWidget {
 
   void _navigateToAuthScreen(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => Navigator.of(context).pushReplacement(AuthScreen.route),
+      (_) => Navigator.of(context).pushReplacement(HomeScreen.route), //Must point to authscreen ...
     );
   }
 

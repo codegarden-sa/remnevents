@@ -44,4 +44,9 @@ class EventModel extends DatabaseItem {
       "id": id,
     };
   }
+
+  @override
+  String toString() {
+    return 'Event: title: {$title}, description: {$description}, date: {$eventDate}, status : {$status}';
+  }
 }
