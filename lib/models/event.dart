@@ -4,7 +4,8 @@ class EventModel extends DatabaseItem {
   final String id;
   final String title;
   final String description;
-  final DateTime eventDate;
+  final DateTime startDate;
+  final DateTime endDate;
   final String status;
   final String userId;
 
@@ -12,7 +13,8 @@ class EventModel extends DatabaseItem {
       {this.id,
       this.title,
       this.description,
-      this.eventDate,
+      this.startDate,
+      this.endDate,
       this.status,
       this.userId})
       : super(id);
@@ -21,7 +23,9 @@ class EventModel extends DatabaseItem {
     return EventModel(
       title: data['title'],
       description: data['description'],
-      eventDate: data['eventDate'],
+      startDate: data['startDate'],
+      endDate: data['endDate'],
+      status: data['status'],
       // status: data['status'],
     );
   }
@@ -31,8 +35,9 @@ class EventModel extends DatabaseItem {
       id: id,
       title: data['title'],
       description: data['description'],
-      eventDate: data['eventDate']?.toDate(),
-      // status: data['status'],
+      startDate: data['startDate']?.toDate(),
+      endDate: data['endDate']?.toDate(),
+      status: data['status'],
     );
   }
 
@@ -40,13 +45,15 @@ class EventModel extends DatabaseItem {
     return {
       "title": title,
       "description": description,
-      "eventDate": eventDate,
+      "startDate": startDate,
+      "endDate": endDate,
+      "status": status,
       "id": id,
     };
   }
 
   @override
   String toString() {
-    return 'Event: title: {$title}, description: {$description}, date: {$eventDate}, status : {$status}';
+    return 'Event: title: {$title}, description: {$description}, date: {$endDate}, status : {$status}';
   }
 }

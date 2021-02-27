@@ -47,8 +47,8 @@ class _NavigationState extends State<Navigation> {
 
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    // final userState = Provider.of<UserState>(context);
-
+    final isLeader = Provider.of<UserState>(context).isLeader;
+    print('home widget, check isLeader ' + isLeader.toString());
     return Scaffold(
         body: IndexedStack(
           children: [
@@ -84,14 +84,8 @@ class _NavigationState extends State<Navigation> {
           elevation: 0,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton:
-
-             Consumer<UserState>(builder: (context, userState, child)
-            {
-            return
-
-            new Visibility(
-          visible: userState.isLeader ? true : false,
+        floatingActionButton: new Visibility(
+          visible: isLeader && _selectedIndex == 0,
           child: NeumorphicButton(
             style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,
@@ -102,13 +96,7 @@ class _NavigationState extends State<Navigation> {
             child: NeumorphicIcon(Icons.add, size: 30),
             onPressed: () => _onItemTap(3),
           ),
-        )
-
-        ;
-
-        })
-
-        );
+        ));
   }
 
 // FloatingActionButton myButton(){

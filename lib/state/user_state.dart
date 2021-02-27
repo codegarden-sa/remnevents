@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class UserState with ChangeNotifier {
-  bool isLeader = false;
+  bool _isLeader = false;
 
-  // UserState({this.isLeader});
+  // UserState({this._isLeader});
+  bool get isLeader => _isLeader; 
+  
 
   void setIsLeader(String status) {
     print('notify the listeners');
     if (status == 'leader' || status == 'admin')
-      this.isLeader = true;
+      this._isLeader = true;
     else
-      this.isLeader = false;
+      this._isLeader = false;
     notifyListeners();
   }
 }

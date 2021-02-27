@@ -7,26 +7,30 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  final CollectionReference eventCollection =
-      Firestore.instance.collection('bookings');
+  final CollectionReference approvedEventCollection =
+      Firestore.instance.collection('events');
+  final CollectionReference allEventCollection =
+      Firestore.instance.collection('events');
   final CollectionReference userCollection =
       Firestore.instance.collection('users');
 
   List<EventModel> _eventListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
       // print
+      print('we have some events ...');
       print(doc);
       return EventModel(
-        id: '2',
         title: doc['title'],
         description: doc['description'],
-        eventDate: doc['eventDate']?.toDate(),
+        startDate: doc['startDate']?.toDate(),
+        endDate: doc['endDate']?.toDate(),
+        status: doc['status'],
       );
     }).toList();
   }
 
   UserDetails _userInfoFromSnapshot(DocumentSnapshot snapshot) {
-    print('email ===>>> '+ snapshot.data['email']);
+    print('email ===>>> ' + snapshot.data['email']);
     return UserDetails(
         uid: uid,
         name: snapshot.data['name'],
@@ -37,7 +41,15 @@ class DatabaseService {
   }
 
   Stream<List<EventModel>> get events {
-    return eventCollection.snapshots().map(_eventListFromSnapshot);
+    return allEventCollection.snapshots().map(_eventListFromSnapshot);
+  }
+
+  Stream<List<EventModel>> get approvedEvents {
+    print('looking for aproved events ...');
+    return approvedEventCollection
+        .where('status', isEqualTo: 'approved')
+        .snapshots()
+        .map(_eventListFromSnapshot);
   }
 
   Future updateUserDetails(String name, String surname, String cellNumber,
@@ -52,26 +64,25 @@ class DatabaseService {
   }
 
   Future bookEvent(String title, String description, String department,
-      String startDate, String endDate, String startTime, String endTime) async {
-    return await userCollection.document(uid).setData({
-      'title': title,
-      'description': description,
-      'department': department,
-      'venue': AppConstants.VENUE,
-      'status': AppConstants.EVENT_STATUS,
-      'startDate':startDate,
-      'endDate': endDate,
-      'startTime': startTime,
-      'endTime' : endTime
-    });
+      DateTime startDate, DateTime endDate) async {
+    return await allEventCollection
+        .document()
+        .setData({
+          'title': title,
+          'description': description,
+          'department': department,
+          'venue': AppConstants.VENUE,
+          'status': AppConstants.EVENT_STATUS,
+          'startDate': startDate,
+          'endDate': endDate,
+          'userId': uid
+        })
+        .then((event) => 'event added')
+        .catchError((error) => error);
   }
 
   Stream<UserDetails> get userDetails {
     print(uid);
     return userCollection.document(uid).snapshots().map(_userInfoFromSnapshot);
   }
-
-  
-
-
 }

@@ -17,7 +17,7 @@ class ListEvents extends StatelessWidget {
     return Container(
 
   child: StreamProvider<List<EventModel>>.value(
-    value: DatabaseService().events,
+    value: DatabaseService().approvedEvents,
     child: Container(
       // color: Colors.green,
       child: EventList(),

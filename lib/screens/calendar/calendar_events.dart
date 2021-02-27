@@ -39,8 +39,10 @@ class _CalendarEventsState extends State<CalendarEvents> {
   Map<DateTime, List<dynamic>> _groupEvents(List<EventModel> allEvents) {
     Map<DateTime, List<dynamic>> data = {};
     allEvents.forEach((event) {
+      // DateTime date = DateTime(
+      //     event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
       DateTime date = DateTime(
-          event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
+         12, 03, 16, 12);
       if (data[date] == null) data[date] = [];
       data[date].add(event);
     });

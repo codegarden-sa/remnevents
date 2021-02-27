@@ -14,7 +14,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-
+    final setIsLeader =
+        Provider.of<UserState>(context, listen: false).setIsLeader;
     // return either the Home or Authenticate widget
 
     print('in the profile');
@@ -30,29 +31,35 @@ class Profile extends StatelessWidget {
               UserDetails userInfo = snapshot.data;
               print('userinfo name');
               print(userInfo.name);
-              return Consumer<UserState>(builder: (context, userState, child) {
-                userState.setIsLeader(userInfo.status);
-                return SingleChildScrollView(
-                    child: Container(
-                  child: Column(
-                    children: [
-                      Text('Hi, ' + userInfo.name, style: TextStyle(fontSize: 40, fontWeight: FontWeight.w800 )),
-                      SizedBox(height: 20.0),
-                      InkWell(
-                        child: Text('Logout'),
-                        onTap: () async {
-                          await _auth.signOut();
-                          userState.setIsLeader('viewer');
-                        },
-                      )
-                    ],
-                  ),
-                ));
-              });
+              // return Consumer<UserState>(builder: (context, userState, child) {
+              // userState.setIsLeader(userInfo.status);
+              setIsLeader(userInfo.status);
+              return SingleChildScrollView(
+                  child: Container(
+                child: Column(
+                  children: [
+                    Text('Hi, ' + userInfo.name,
+                        style: TextStyle(
+                            fontSize: 40, fontWeight: FontWeight.w800)),
+                    SizedBox(height: 20.0),
+                    InkWell(
+                      child: Text('Logout'),
+                      onTap: () async {
+                        await _auth.signOut();
+                        // userState.setIsLeader('viewer');
+                        setIsLeader('viewer');
+                      },
+                    )
+                  ],
+                ),
+              ));
+              // });
             } else
               return Container(
-                child: InkWell(child: Text('No User Data, Tap to logout'), onTap: () async => await _auth.signOut(),),
-                
+                child: InkWell(
+                  child: Text('No User Data, Tap to logout'),
+                  onTap: () async => await _auth.signOut(),
+                ),
               );
           });
     }

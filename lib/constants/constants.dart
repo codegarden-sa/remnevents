@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AppConstants {
   //Fields
@@ -14,6 +15,12 @@ class AppConstants {
   static Color lightgrey = Color(0xffECF0F1);
   static Color darkblue = Color(0xff34495E);
   static Color blackish = Color(0xff353b48);
+
+  //dateTime
+
+  static final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
+  static final DateFormat hourFormat = DateFormat('Hm');
+
 
 //decorations
   static List<BoxShadow> neumorpShadow = [

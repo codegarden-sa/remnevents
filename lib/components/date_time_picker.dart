@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
+import 'package:sandtonchurchapp/constants/constants.dart';
 
 class DateTimeFld extends StatefulWidget {
   // DateTimeFld({Key key}) : super(key: key);/
@@ -14,10 +15,8 @@ class DateTimeFld extends StatefulWidget {
 class _DateTimeFldState extends State<DateTimeFld> {
   DateTime selectedDate;
 
-  String startDate = '';
-  String endDate = '';
-  String startTime = '';
-  String endTime = '';
+  DateTime startDate;
+  DateTime endDate;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +40,7 @@ class _DateTimeFldState extends State<DateTimeFld> {
                 onDateSelected: (DateTime date) {
                   print(date);
                   setState(() {
-                    startDate = date.year.toString() +
-                        '-' +
-                        date.month.toString() +
-                        '-' +
-                        date.day.toString();
-                    startTime =
-                        date.hour.toString() + ':' + date.minute.toString();
+                    startDate = date;
                   });
                 },
               ),
@@ -65,19 +58,11 @@ class _DateTimeFldState extends State<DateTimeFld> {
                     val.toString().isEmpty ? 'DateTime is required' : null,
                 onDateSelected: (DateTime date) {
                   setState(() {
-                    endDate = date.year.toString() +
-                        '-' +
-                        date.month.toString() +
-                        '-' +
-                        date.day.toString();
-                    endTime =
-                        date.hour.toString() + ':' + date.minute.toString();
+                    endDate = date;
                   });
                   if (startDate != null &&
-                      startTime != null &&
-                      endTime != null &&
                       endDate != null)
-                    widget.setDateTime(startDate, startTime, endDate, endTime);
+                    widget.setDateTime(startDate,endDate);
                   else
                     print('date fields are required');
                 },
