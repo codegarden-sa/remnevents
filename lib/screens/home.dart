@@ -50,53 +50,58 @@ class _NavigationState extends State<Navigation> {
     final isLeader = Provider.of<UserState>(context).isLeader;
     print('home widget, check isLeader ' + isLeader.toString());
     return Scaffold(
-        body: IndexedStack(
-          children: [
-            Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
+      body: IndexedStack(
+        children: [
+          Center(
+            child: _widgetOptions.elementAt(_selectedIndex),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppConstants.lightgrey,
+        selectedItemColor: AppConstants.guava,
+        unselectedItemColor: AppConstants.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.solidCalendar, size: 20),
+            label: '____',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(
+              FontAwesomeIcons.solidListAlt,
+              size: 20,
             ),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: AppConstants.lightgrey,
-          selectedItemColor: AppConstants.guava,
-          unselectedItemColor: AppConstants.grey,
-          items: [
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidCalendar, size: 20),
-              label: '____',
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(
-                FontAwesomeIcons.solidListAlt,
-                size: 20,
-              ),
-              label: '____',
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.solidUser, size: 20),
-              label: '____',
-            ),
-          ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex <= 2 ? _selectedIndex : 0,
-          onTap: _onItemTap,
-          elevation: 0,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        floatingActionButton: new Visibility(
-          visible: isLeader && _selectedIndex == 0,
+            label: '____',
+          ),
+          BottomNavigationBarItem(
+            icon: FaIcon(FontAwesomeIcons.solidUser, size: 20),
+            label: '____',
+          ),
+        ],
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _selectedIndex <= 2 ? _selectedIndex : 0,
+        onTap: _onItemTap,
+        elevation: 0,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton:
+          Consumer<UserState>(builder: (context, userState, _) {
+        print('the profile '+ userState.isLeader.toString());
+        return new Visibility(
+          visible: userState.isLeader && _selectedIndex == 0,
           child: NeumorphicButton(
             style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,
                 boxShape: NeumorphicBoxShape.circle(),
-                depth: 6,
+                depth: -1,
                 lightSource: LightSource.topLeft,
                 color: AppConstants.grey),
-            child: NeumorphicIcon(Icons.add, size: 30),
+            child: Icon(Icons.add, size: 30, color: Colors.white54,),
             onPressed: () => _onItemTap(3),
           ),
-        ));
+        );
+      }),
+    );
   }
 
 // FloatingActionButton myButton(){

@@ -10,7 +10,7 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('::::: ---> {$event.toString()} <----- :::::');
+    // print('::::: ---> {$event.toString()} <----- :::::');
     return Neumorphic(
       margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -19,7 +19,7 @@ class EventTile extends StatelessWidget {
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(6)),
           depth: -1,
           lightSource: LightSource.topLeft,
-          color: AppConstants.lightgrey),
+          color: Colors.white),
       child: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -52,6 +52,11 @@ class EventTile extends StatelessWidget {
   }
 
   Row dayTask(dynamic event) {
+    print(event.startHour);
+    // print(event);
+    // String startHour = event.startDate.hour.toString();
+    // String endHour = event.endDate.hour.toString();
+    // print(startHour + " " + endHour);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -78,14 +83,12 @@ class EventTile extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            // margin: EdgeInsets.only(bottom: 20),
-            // padding: EdgeInsets.all(20),
-            color: AppConstants.lightgrey,
+            color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Pathfinder',
+                  event.department??'',
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 16,
@@ -98,7 +101,7 @@ class EventTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "9am - 5 pm",
+                      event.startHour + " - " + event.endHour,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 13,
@@ -127,10 +130,10 @@ class EventTile extends StatelessWidget {
                               BorderRadius.circular(6)),
                           depth: -2,
                           lightSource: LightSource.topLeft,
-                          color: AppConstants.lightgrey),
+                          color: Colors.white),
                       // decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(4))),
                       child: Text(
-                        "Local church",
+                        event.venue ?? '',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 14,

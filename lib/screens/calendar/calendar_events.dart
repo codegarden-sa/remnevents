@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/screens/events/event_tile.dart';
+import 'package:sandtonchurchapp/services/database.dart';
+import 'package:sandtonchurchapp/utils/group_events.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../booking/book_event.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../services/events_firestore_services.dart';
 import '../../constants/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:sandtonchurchapp/models/event.dart';
@@ -17,7 +17,6 @@ class CalendarEvents extends StatefulWidget {
 }
 
 class _CalendarEventsState extends State<CalendarEvents> {
-
   CalendarController _controller;
   Map<DateTime, List<dynamic>> _events;
   List<dynamic> _selectedEvents;
@@ -36,32 +35,18 @@ class _CalendarEventsState extends State<CalendarEvents> {
     // initPrefs();
   }
 
-  Map<DateTime, List<dynamic>> _groupEvents(List<EventModel> allEvents) {
-    Map<DateTime, List<dynamic>> data = {};
-    allEvents.forEach((event) {
-      // DateTime date = DateTime(
-      //     event.eventDate.year, event.eventDate.month, event.eventDate.day, 12);
-      DateTime date = DateTime(
-         12, 03, 16, 12);
-      if (data[date] == null) data[date] = [];
-      data[date].add(event);
-    });
-    return data;
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Center(
         child: Scaffold(
           body: StreamBuilder<List<EventModel>>(
-              stream: eventDBS.streamList(),
+              stream: DatabaseService().approvedEvents,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<EventModel> allEvents = snapshot.data;
                   if (allEvents.isNotEmpty) {
-                    _events = _groupEvents(allEvents);
-                    // print(_events);
+                    _events = groupEvents(allEvents);
                   } else {
                     _events = {};
                     _selectedEvents = [];
@@ -118,11 +103,12 @@ class _CalendarEventsState extends State<CalendarEvents> {
                               ),
                               startingDayOfWeek: StartingDayOfWeek.monday,
                               onDaySelected: (date, events, _) {
-                                //  print('here');
-                                //  print(events);
+                                print('here .....');
                                 setState(() {
                                   _selectedEvents = events;
                                 });
+
+                                print(_selectedEvents[0].startHour);
                               },
                               builders: CalendarBuilders(
                                 selectedDayBuilder: (context, date, events) =>
@@ -162,9 +148,18 @@ class _CalendarEventsState extends State<CalendarEvents> {
                         ),
                       ),
                     ),
-   
-                    ..._selectedEvents.map((event) => EventTile(event: event)),
 
+                    Container(
+                      color: AppConstants.darkblue,
+                      height: 500.00,
+                    child: SingleChildScrollView(child: Column(
+                      children: [
+
+                        ..._selectedEvents.map((event) => EventTile(event: event)) 
+                      ],
+                    ),),
+
+                    )
                   ],
                 );
               }),

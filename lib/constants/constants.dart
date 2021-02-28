@@ -6,7 +6,9 @@ class AppConstants {
 
   static final String EVENT_STATUS = 'pending';
   static final String VENUE = 'local church';
-  static final String USER_STATUS = 'viewer';
+  static final String ADMINISTRATOR = 'administrator';
+  static final String LEADER = 'leader';
+  static final String VIEWER = 'viewer';
 
   //colors
   static Color guava = Color(0xffFEA47F);
@@ -20,7 +22,6 @@ class AppConstants {
 
   static final DateFormat dateFormat = DateFormat('yyyy-MM-dd');
   static final DateFormat hourFormat = DateFormat('Hm');
-
 
 //decorations
   static List<BoxShadow> neumorpShadow = [
@@ -48,3 +49,7 @@ class AppConstants {
     ),
   );
 }
+
+enum UserType { viewer, leader, administrator }
+
+enum EventType { pending, approved, declined, deleted }

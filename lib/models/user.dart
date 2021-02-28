@@ -1,3 +1,5 @@
+import 'package:sandtonchurchapp/constants/constants.dart';
+
 class User {
   final String uid;
 
@@ -13,4 +15,6 @@ class UserDetails {
   final String status;
 
   UserDetails({this.uid, this.name, this.surname, this.cellNumber, this.email, this.status});
+
+
 }

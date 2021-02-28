@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/models/user.dart';
@@ -16,21 +18,25 @@ class DatabaseService {
 
   List<EventModel> _eventListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
-      // print
-      print('we have some events ...');
-      print(doc);
-      return EventModel(
+      String startHour = DateFormat('j').format(doc['startDate'].toDate());
+      String endHour = DateFormat('j').format(doc['endDate'].toDate());
+     return EventModel(
         title: doc['title'],
+        department: doc['department'],
         description: doc['description'],
         startDate: doc['startDate']?.toDate(),
         endDate: doc['endDate']?.toDate(),
+        startHour: startHour,
+        endHour: endHour,
         status: doc['status'],
+        venue: doc['venue'],
+        createdAt: DateTime.fromMillisecondsSinceEpoch(doc['createdAt'] ?? 0),
+        modifiedAt: DateTime.fromMillisecondsSinceEpoch(doc['modifiedAt'] ?? 0),
       );
     }).toList();
   }
 
   UserDetails _userInfoFromSnapshot(DocumentSnapshot snapshot) {
-    print('email ===>>> ' + snapshot.data['email']);
     return UserDetails(
         uid: uid,
         name: snapshot.data['name'],
@@ -41,15 +47,16 @@ class DatabaseService {
   }
 
   Stream<List<EventModel>> get events {
+    print('about to stream list');
     return allEventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
   Stream<List<EventModel>> get approvedEvents {
-    print('looking for aproved events ...');
+    print('stream approved list');
     return approvedEventCollection
         .where('status', isEqualTo: 'approved')
         .snapshots()
-        .map(_eventListFromSnapshot);
+        .map((ev)=> _eventListFromSnapshot(ev));
   }
 
   Future updateUserDetails(String name, String surname, String cellNumber,
@@ -72,9 +79,11 @@ class DatabaseService {
           'description': description,
           'department': department,
           'venue': AppConstants.VENUE,
-          'status': AppConstants.EVENT_STATUS,
+          'status': AppConstants.VIEWER,
           'startDate': startDate,
           'endDate': endDate,
+          'createdAt': DateTime.now(),
+          'modifiedAt': DateTime.now(),
           'userId': uid
         })
         .then((event) => 'event added')
