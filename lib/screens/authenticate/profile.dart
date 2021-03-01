@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/models/user.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/services/database.dart';
-import 'package:sandtonchurchapp/state/user_state.dart';
+import 'package:sandtonchurchapp/state/app_state.dart';
 
 class Profile extends StatelessWidget {
   // const Profile({Key key}) : super(key: key);
@@ -15,10 +15,8 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     final setIsLeader =
-        Provider.of<UserState>(context, listen: false).setIsLeader;
+        Provider.of<AppState>(context, listen: false).setIsLeader;
     // return either the Home or Authenticate widget
-
-    print('in the profile');
     if (user == null) {
       return Authenticate();
       // _userState.setIsLeader("viwer");
@@ -29,10 +27,6 @@ class Profile extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               UserDetails userInfo = snapshot.data;
-              print('userinfo name');
-              print(userInfo.name);
-              // return Consumer<UserState>(builder: (context, userState, child) {
-              // userState.setIsLeader(userInfo.status);
               setIsLeader(userInfo.status);
               return SingleChildScrollView(
                   child: Container(
@@ -46,7 +40,7 @@ class Profile extends StatelessWidget {
                       child: Text('Logout'),
                       onTap: () async {
                         await _auth.signOut();
-                        // userState.setIsLeader('viewer');
+                        // AppState.setIsLeader('viewer');
                         setIsLeader('viewer');
                       },
                     )

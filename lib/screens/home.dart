@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sandtonchurchapp/components/date_time_picker.dart';
 import 'package:sandtonchurchapp/screens/authenticate/profile.dart';
-import 'package:sandtonchurchapp/state/user_state.dart';
+import 'package:sandtonchurchapp/state/app_state.dart';
 import 'calendar/calendar_events.dart';
 import '../constants/constants.dart';
 import 'events/view_event.dart';
@@ -47,8 +47,7 @@ class _NavigationState extends State<Navigation> {
 
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    final isLeader = Provider.of<UserState>(context).isLeader;
-    print('home widget, check isLeader ' + isLeader.toString());
+    final isLeader = Provider.of<AppState>(context).isLeader;
     return Scaffold(
       body: IndexedStack(
         children: [
@@ -85,10 +84,9 @@ class _NavigationState extends State<Navigation> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton:
-          Consumer<UserState>(builder: (context, userState, _) {
-        print('the profile '+ userState.isLeader.toString());
+          Consumer<AppState>(builder: (context, AppState, _) {
         return new Visibility(
-          visible: userState.isLeader && _selectedIndex == 0,
+          visible: AppState.isLeader && _selectedIndex == 0,
           child: NeumorphicButton(
             style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,

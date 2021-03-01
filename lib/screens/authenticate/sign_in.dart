@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/constants/loading.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/state/user_state.dart';
+import 'package:sandtonchurchapp/state/app_state.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;

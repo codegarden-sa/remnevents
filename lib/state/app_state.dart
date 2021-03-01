@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
 
-class UserState with ChangeNotifier {
+class AppState with ChangeNotifier {
   bool _isLeader = false;
+  bool _isDayEventsEmpty = false;
 
-  // UserState({this._isLeader});
   bool get isLeader => _isLeader;
+  bool get isDayEventsEmpty => _isDayEventsEmpty;
 
   void setIsLeader(String status) {
-    print('notify the listeners....');
-
     if (status == AppConstants.LEADER || status == AppConstants.ADMINISTRATOR)
       this._isLeader = true;
     else
       this._isLeader = false;
+    notifyListeners();
+  }
 
-    print('isLeader --> '+this._isLeader.toString());
+  void setIsDayEventsEmpty(bool res) {
+    this._isDayEventsEmpty = res;
     notifyListeners();
   }
 }

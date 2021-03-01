@@ -37,7 +37,6 @@ class _BookEventState extends State<BookEvent> {
       );
 
       FormController formController = FormController((String response) {
-        print("Response: $response");
         if (response == FormController.STATUS_SUCCESS) {
           //
           _showSnackbar("Feedback Submitted");
@@ -49,9 +48,6 @@ class _BookEventState extends State<BookEvent> {
       });
 
       _showSnackbar("Submitting Feedback");
-
-      // Submit 'feedbackForm' and save it in Google Sheet
-
       formController.submitForm(feedbackForm);
     }
   }

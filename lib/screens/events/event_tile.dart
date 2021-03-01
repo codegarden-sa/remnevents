@@ -10,16 +10,15 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print('::::: ---> {$event.toString()} <----- :::::');
     return Neumorphic(
-      margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.fromLTRB(8, 24, 32, 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
       style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
           boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(6)),
           depth: -1,
           lightSource: LightSource.topLeft,
-          color: Colors.white),
+          color: Colors.transparent),
       child: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -30,7 +29,7 @@ class EventTile extends StatelessWidget {
                   Text(
                     event.title,
                     style: TextStyle(
-                      color: AppConstants.grey,
+                      color: Colors.white,
                       fontFamily: 'Montserrat',
                       fontSize: 17,
                       fontWeight: FontWeight.w800,
@@ -52,11 +51,6 @@ class EventTile extends StatelessWidget {
   }
 
   Row dayTask(dynamic event) {
-    print(event.startHour);
-    // print(event);
-    // String startHour = event.startDate.hour.toString();
-    // String endHour = event.endDate.hour.toString();
-    // print(startHour + " " + endHour);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -64,8 +58,8 @@ class EventTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: EdgeInsets.all(2),
-              margin: EdgeInsets.all(4),
+              padding: EdgeInsets.fromLTRB(0,0,4,0),
+              margin: EdgeInsets.fromLTRB(0,0,8,0),
               decoration: BoxDecoration(
                   color: AppConstants.guava,
                   borderRadius: BorderRadius.all(Radius.circular(100))),
@@ -83,14 +77,14 @@ class EventTile extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            color: Colors.white,
+            color: Colors.transparent,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  event.department??'',
+                  ''+ event.department??'',
                   style: TextStyle(
-                      color: Colors.grey,
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
                 ),
@@ -103,7 +97,7 @@ class EventTile extends StatelessWidget {
                     Text(
                       event.startHour + " - " + event.endHour,
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.white,
                         fontSize: 13,
                       ),
                     )
@@ -122,24 +116,24 @@ class EventTile extends StatelessWidget {
                     Expanded(
                       child: Container(),
                     ),
-                    Neumorphic(
-                      padding: EdgeInsets.all(3),
-                      style: NeumorphicStyle(
-                          shape: NeumorphicShape.concave,
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(6)),
-                          depth: -2,
-                          lightSource: LightSource.topLeft,
-                          color: Colors.white),
-                      // decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Text(
-                        event.venue ?? '',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                        ),
-                      ),
-                    )
+                    // Neumorphic(
+                    //   padding: EdgeInsets.all(3),
+                    //   style: NeumorphicStyle(
+                    //       shape: NeumorphicShape.concave,
+                    //       boxShape: NeumorphicBoxShape.roundRect(
+                    //           BorderRadius.circular(6)),
+                    //       depth: -2,
+                    //       lightSource: LightSource.topLeft,
+                    //       color: Colors.white),
+                    //   // decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(4))),
+                    //   child: Text(
+                    //     event.venue ?? '',
+                    //     style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 14,
+                    //     ),
+                    //   ),
+                    // )
                   ],
                 )
               ],

@@ -1,8 +1,10 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:sandtonchurchapp/components/empty_day_events.dart';
 import 'package:sandtonchurchapp/screens/events/event_tile.dart';
 import 'package:sandtonchurchapp/services/database.dart';
+import 'package:sandtonchurchapp/state/app_state.dart';
 import 'package:sandtonchurchapp/utils/group_events.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +24,7 @@ class _CalendarEventsState extends State<CalendarEvents> {
   List<dynamic> _selectedEvents;
   TextEditingController _eventController;
   SharedPreferences prefs;
+  bool _isDayEventsEmpty;
 
   DateTime get date => null;
 
@@ -32,6 +35,7 @@ class _CalendarEventsState extends State<CalendarEvents> {
     _eventController = TextEditingController();
     _events = {};
     _selectedEvents = [];
+    _isDayEventsEmpty = true;
     // initPrefs();
   }
 
@@ -45,12 +49,15 @@ class _CalendarEventsState extends State<CalendarEvents> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<EventModel> allEvents = snapshot.data;
+                  print('allEvents');
                   if (allEvents.isNotEmpty) {
                     _events = groupEvents(allEvents);
                   } else {
                     _events = {};
                     _selectedEvents = [];
                   }
+                } else {
+                  print('no data in snapshot');
                 }
                 return ListView(
                   children: <Widget>[
@@ -103,12 +110,13 @@ class _CalendarEventsState extends State<CalendarEvents> {
                               ),
                               startingDayOfWeek: StartingDayOfWeek.monday,
                               onDaySelected: (date, events, _) {
-                                print('here .....');
                                 setState(() {
                                   _selectedEvents = events;
+                                  if (_selectedEvents.length > 0)
+                                    _isDayEventsEmpty = false;
+                                  else
+                                    _isDayEventsEmpty = true;
                                 });
-
-                                print(_selectedEvents[0].startHour);
                               },
                               builders: CalendarBuilders(
                                 selectedDayBuilder: (context, date, events) =>
@@ -148,32 +156,42 @@ class _CalendarEventsState extends State<CalendarEvents> {
                         ),
                       ),
                     ),
-
                     Container(
-                      color: AppConstants.darkblue,
-                      height: 500.00,
-                    child: SingleChildScrollView(child: Column(
-                      children: [
-
-                        ..._selectedEvents.map((event) => EventTile(event: event)) 
-                      ],
-                    ),),
-
+                padding: EdgeInsets.only(left: 30),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.55,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  ),
+                  color: AppConstants.darkblue,
+                ),
+                      child: Stack(
+                        children: [Column(
+                          children: [
+                        //   Padding(
+                        //   padding: EdgeInsets.only(top: 10),
+                        //   child: Text(
+                        //     "Today",
+                        //     style: TextStyle(
+                        //         color: Colors.white,
+                        //         fontSize: 30,
+                        //         fontWeight: FontWeight.bold),
+                        //   ),
+                        // ),
+                            ..._selectedEvents
+                                .map((event) => EventTile(event: event)),
+                            _isDayEventsEmpty == false
+                                ? SizedBox(width: 0, height: 0)
+                                : Text('NO EVENTS TODAY')
+                          ],
+                        ),]
+                      ),
                     )
                   ],
                 );
               }),
-          // floatingActionButton: NeumorphicButton(
-          //   style: NeumorphicStyle(
-          //       shape: NeumorphicShape.flat,
-          //       boxShape: NeumorphicBoxShape.circle(),
-          //       depth: 6,
-          //       lightSource: LightSource.topLeft,
-          //       color: AppConstants.grey),
-          //   child: NeumorphicIcon(Icons.add, size: 30),
-          //   onPressed: () => Navigator.push(context,
-          //       MaterialPageRoute(builder: (context) => BookEvent())),
-          // ),
           backgroundColor: Colors.white,
         ),
       ),

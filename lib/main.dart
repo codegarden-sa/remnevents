@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/screens/home.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/services/database.dart';
-import 'package:sandtonchurchapp/state/user_state.dart';
+import 'package:sandtonchurchapp/state/app_state.dart';
 import 'constants/palette.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sandtonchurchapp/models/user.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         StreamProvider<User>.value(value: AuthService().user),
         StreamProvider<UserDetails>.value(value: DatabaseService().userDetails),
-        ChangeNotifierProvider(create: (context) => UserState())
+        ChangeNotifierProvider(create: (context) => AppState())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

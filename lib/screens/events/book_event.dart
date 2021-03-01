@@ -159,18 +159,14 @@ class _BookEventState extends State<BookEvent> {
                                   await DatabaseService(uid: user.uid)
                                       .bookEvent(title, description, department,
                                           startDate, endDate);
-                              print('results from submiting event');
                               setState(() {
                                 loading = false;
                                 description = '';
                               });
 
                               if (eventBooked != null) {
-                                print(eventBooked);
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) => HomeScreen()));
                               } else
                                 print('could not book event');
                             }

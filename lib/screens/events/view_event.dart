@@ -13,9 +13,7 @@ class ListEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('hello');
     return Container(
-
   child: StreamProvider<List<EventModel>>.value(
     value: DatabaseService().approvedEvents,
     child: Container(

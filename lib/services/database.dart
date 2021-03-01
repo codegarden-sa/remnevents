@@ -20,7 +20,7 @@ class DatabaseService {
     return snapshot.documents.map((doc) {
       String startHour = DateFormat('j').format(doc['startDate'].toDate());
       String endHour = DateFormat('j').format(doc['endDate'].toDate());
-     return EventModel(
+      return EventModel(
         title: doc['title'],
         department: doc['department'],
         description: doc['description'],
@@ -30,8 +30,9 @@ class DatabaseService {
         endHour: endHour,
         status: doc['status'],
         venue: doc['venue'],
-        createdAt: DateTime.fromMillisecondsSinceEpoch(doc['createdAt'] ?? 0),
-        modifiedAt: DateTime.fromMillisecondsSinceEpoch(doc['modifiedAt'] ?? 0),
+        //TODO: //get new events with date times
+        // createdAt: DateTime.fromMillisecondsSinceEpoch(doc['createdAt'] ?? DateTime.now()),
+        // modifiedAt: DateTime.fromMillisecondsSinceEpoch(doc['modifiedAt'] ?? DateTime.now()),
       );
     }).toList();
   }
@@ -47,16 +48,20 @@ class DatabaseService {
   }
 
   Stream<List<EventModel>> get events {
-    print('about to stream list');
     return allEventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
   Stream<List<EventModel>> get approvedEvents {
-    print('stream approved list');
-    return approvedEventCollection
-        .where('status', isEqualTo: 'approved')
-        .snapshots()
-        .map((ev)=> _eventListFromSnapshot(ev));
+    try {
+      return approvedEventCollection
+          .where('status', isEqualTo: AppConstants.APPROVED)
+          .snapshots()
+          .map(_eventListFromSnapshot);
+    } on Exception catch (e) {
+      print('error getting events from firebase');
+      print(e);
+      return null;
+    }
   }
 
   Future updateUserDetails(String name, String surname, String cellNumber,
@@ -79,7 +84,7 @@ class DatabaseService {
           'description': description,
           'department': department,
           'venue': AppConstants.VENUE,
-          'status': AppConstants.VIEWER,
+          'status': AppConstants.PENDING,
           'startDate': startDate,
           'endDate': endDate,
           'createdAt': DateTime.now(),
@@ -91,7 +96,6 @@ class DatabaseService {
   }
 
   Stream<UserDetails> get userDetails {
-    print(uid);
     return userCollection.document(uid).snapshots().map(_userInfoFromSnapshot);
   }
 }

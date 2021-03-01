@@ -38,7 +38,6 @@ class _DateTimeFldState extends State<DateTimeFld> {
                 validator: (val) =>
                     val.toString().isEmpty ? 'DateTime is required' : null,
                 onDateSelected: (DateTime date) {
-                  print(date);
                   setState(() {
                     startDate = date;
                   });

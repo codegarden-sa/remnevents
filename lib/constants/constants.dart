@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 class AppConstants {
   //Fields
 
-  static final String EVENT_STATUS = 'pending';
+  static final String PENDING = 'pending';
+  static final String APPROVED = 'approved';
   static final String VENUE = 'local church';
   static final String ADMINISTRATOR = 'administrator';
   static final String LEADER = 'leader';
