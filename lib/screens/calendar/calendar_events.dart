@@ -162,29 +162,32 @@ class _CalendarEventsState extends State<CalendarEvents> {
                 height: MediaQuery.of(context).size.height * 0.55,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(50),
-                    topRight: Radius.circular(50),
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
                   ),
                   color: AppConstants.darkblue,
                 ),
                       child: Stack(
                         children: [Column(
                           children: [
-                        //   Padding(
-                        //   padding: EdgeInsets.only(top: 10),
-                        //   child: Text(
-                        //     "Today",
-                        //     style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 30,
-                        //         fontWeight: FontWeight.bold),
-                        //   ),
-                        // ),
+                          Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(1.0, 2.0, 295, 0.0),
+                          child: Text(
+                            "Today",
+                            style: TextStyle(
+                                color: Colors.white60,
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
                             ..._selectedEvents
                                 .map((event) => EventTile(event: event)),
                             _isDayEventsEmpty == false
                                 ? SizedBox(width: 0, height: 0)
-                                : Text('NO EVENTS TODAY')
+                                : Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: Text('No Programs', style: TextStyle(color: Colors.white60, fontSize: 15),
+                                )),
                           ],
                         ),]
                       ),

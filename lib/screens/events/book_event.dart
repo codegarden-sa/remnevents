@@ -71,116 +71,126 @@ class _BookEventState extends State<BookEvent> {
     final user = Provider.of<User>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Book Event'),
+        title: Text('Book Event', style: TextStyle(color: Colors.white54),),
+        shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(25.0),
+        ),
       ),
-      body: loading
-          ? Loading()
-          : SingleChildScrollView(
-              // backgroundColor: Colors.brown[100],
-              // appBar: AppBar(
-              //   backgroundColor: Colors.brown[400],
-              //   elevation: 0.0,
-              //   title: Text('Sign up to Brew Crew'),
-              //   actions: <Widget>[
-              //     FlatButton.icon(
-              //       icon: Icon(Icons.person),
-              //       label: Text('Sign In'),
-              //       onPressed: () => widget.toggleView(),
-              //     ),
-              //   ],
-              // ),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 20.0),
-                      Container(
-                        color: Colors.white,
-                        // padding: EdgeInsets.all(16),
-                        child: DropDownFormField(
-                          titleText: 'Department',
-                          hintText: 'Choose One',
-                          validator: (val) =>
-                              val.isEmpty ? 'Choose department' : null,
-                          value: _dept,
-                          onSaved: (value) {
-                            setState(() {
-                              _dept = value;
-                            });
-                          },
-                          onChanged: (value) {
-                            setState(() {
-                              _dept = value;
-                            });
-                          },
-                          dataSource: _departmentList,
-                          textField: 'display',
-                          valueField: 'value',
-                        ),
-                      ),
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        decoration: AppConstants.textInputDecoration
-                            .copyWith(hintText: 'Event Title'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter event title' : null,
-                        onChanged: (val) {
-                          setState(() => title = val);
-                        },
-                      ),
-                      SizedBox(height: 20.0),
-                      TextFormField(
-                        decoration: AppConstants.textInputDecoration
-                            .copyWith(hintText: 'Event Description'),
-                        validator: (val) =>
-                            val.isEmpty ? 'Enter event description' : null,
-                        onChanged: (val) {
-                          setState(() => description = val);
-                        },
-                      ),
-                      SizedBox(height: 20.0),
-                      DateTimeFld(setDateTime: setDateTime),
-                      SizedBox(height: 20.0),
-                      RaisedButton(
-                          color: AppConstants.grey,
-                          child: Text(
-                            'Submit',
-                            style: TextStyle(color: Colors.white),
+        backgroundColor: AppConstants.darkblue,
+        elevation: 0.0,
+        
+      ),
+      body: SafeArea(
+              child: loading
+            ? Loading()
+            : SingleChildScrollView(
+                // backgroundColor: Colors.brown[100],
+                // appBar: AppBar(
+                //   backgroundColor: Colors.brown[400],
+                //   elevation: 0.0,
+                //   title: Text('Sign up to Brew Crew'),
+                //   actions: <Widget>[
+                //     FlatButton.icon(
+                //       icon: Icon(Icons.person),
+                //       label: Text('Sign In'),
+                //       onPressed: () => widget.toggleView(),
+                //     ),
+                //   ],
+                // ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 20.0),
+                        Container(
+                          color: Colors.white,
+                          // padding: EdgeInsets.all(16),
+                          child: DropDownFormField(
+                            titleText: 'Department',
+                            hintText: 'Choose One',
+                            validator: (val) =>
+                                val.isEmpty ? 'Choose department' : null,
+                            value: _dept,
+                            onSaved: (value) {
+                              setState(() {
+                                _dept = value;
+                              });
+                            },
+                            onChanged: (value) {
+                              setState(() {
+                                _dept = value;
+                              });
+                            },
+                            dataSource: _departmentList,
+                            textField: 'display',
+                            valueField: 'value',
                           ),
-                          onPressed: () async {
-                            if (_formKey.currentState.validate()) {
-                              setState(() {
-                                department = _dept;
-                              });
-                              setState(() => loading = true);
-                              dynamic eventBooked =
-                                  await DatabaseService(uid: user.uid)
-                                      .bookEvent(title, description, department,
-                                          startDate, endDate);
-                              setState(() {
-                                loading = false;
-                                description = '';
-                              });
-
-                              if (eventBooked != null) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              } else
-                                print('could not book event');
-                            }
-                          }),
-                      SizedBox(height: 12.0),
-                      Text(
-                        error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
-                      ),
-                    ],
+                        ),
+                        SizedBox(height: 20.0),
+                        TextFormField(
+                          decoration: AppConstants.textInputDecoration
+                              .copyWith(hintText: 'Event Title'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter event title' : null,
+                          onChanged: (val) {
+                            setState(() => title = val);
+                          },
+                        ),
+                        SizedBox(height: 20.0),
+                        TextFormField(
+                          decoration: AppConstants.textInputDecoration
+                              .copyWith(hintText: 'Event Description'),
+                          validator: (val) =>
+                              val.isEmpty ? 'Enter event description' : null,
+                          onChanged: (val) {
+                            setState(() => description = val);
+                          },
+                        ),
+                        SizedBox(height: 20.0),
+                        DateTimeFld(setDateTime: setDateTime),
+                        SizedBox(height: 20.0),
+                        RaisedButton(
+                            color: AppConstants.grey,
+                            child: Text(
+                              'Submit',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState.validate()) {
+                                setState(() {
+                                  department = _dept;
+                                });
+                                setState(() => loading = true);
+                                dynamic eventBooked =
+                                    await DatabaseService(uid: user.uid)
+                                        .bookEvent(title, description, department,
+                                            startDate, endDate);
+                                setState(() {
+                                  loading = false;
+                                  description = '';
+                                });
+                  
+                                if (eventBooked != null) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                } else
+                                  print('could not book event');
+                              }
+                            }),
+                        SizedBox(height: 12.0),
+                        Text(
+                          error,
+                          style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+      ),
     );
   }
 }
