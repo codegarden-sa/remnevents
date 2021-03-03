@@ -156,40 +156,62 @@ class _CalendarEventsState extends State<CalendarEvents> {
                         ),
                       ),
                     ),
-                    Container(
-                padding: EdgeInsets.only(left: 30),
+                    SingleChildScrollView(
+                                          child: Container(
+                // padding: EdgeInsets.only(left: 30),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.55,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25),
                   ),
                   color: AppConstants.darkblue,
                 ),
-                      child: Stack(
-                        children: [Column(
-                          children: [
-                          Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(1.0, 2.0, 295, 0.0),
-                          child: Text(
-                            "Today",
-                            style: TextStyle(
-                                color: Colors.white60,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
+                        child: Stack(
+                          children: [Column(
+                            children: [
+                            // Padding(
+                            // padding: EdgeInsetsDirectional.fromSTEB(1.0, 2.0, 295, 0.0),
+                            // child: 
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Today",
+                                    style: TextStyle(
+                                        color: Colors.white60,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          // ),
+                              ..._selectedEvents
+                                  .map((event) => EventTile(event: event)),
+                              _isDayEventsEmpty == false
+                                  ? SizedBox(width: 0, height: 0)
+                                  : 
+                                  
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(right: 30),
+                                  //   child: 
+                                    
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center ,//Center Row contents horizontally,
+crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text('No Programs', style: TextStyle(color: Colors.white60, fontSize: 15),
+                                  // )
+                                  
+                                  ),
+                                      ],
+                                    ),
+                            ],
+                          ),]
                         ),
-                            ..._selectedEvents
-                                .map((event) => EventTile(event: event)),
-                            _isDayEventsEmpty == false
-                                ? SizedBox(width: 0, height: 0)
-                                : Padding(
-                                  padding: const EdgeInsets.only(right: 30),
-                                  child: Text('No Programs', style: TextStyle(color: Colors.white60, fontSize: 15),
-                                )),
-                          ],
-                        ),]
                       ),
                     )
                   ],
