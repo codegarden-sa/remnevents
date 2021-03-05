@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sandtonchurchapp/constants/constants.dart';
 import 'package:sandtonchurchapp/screens/authenticate/authenticate.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/models/user.dart';
@@ -14,8 +15,8 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-    final setIsLeader =
-        Provider.of<AppState>(context, listen: false).setIsLeader;
+    final setIsLeader = Provider.of<AppState>(context, listen: false).setIsLeader;
+    final setIsAdmin = Provider.of<AppState>(context, listen: false).setIsAdmin;
     // return either the Home or Authenticate widget
     if (user == null) {
       return Authenticate();
@@ -28,6 +29,7 @@ class Profile extends StatelessWidget {
             if (snapshot.hasData) {
               UserDetails userInfo = snapshot.data;
               setIsLeader(userInfo.status);
+              setIsAdmin(userInfo.status);
               return SingleChildScrollView(
                   child: Container(
                 child: Column(
@@ -35,6 +37,8 @@ class Profile extends StatelessWidget {
                     Text('Hi, ' + userInfo.name,
                         style: TextStyle(
                             fontSize: 40, fontWeight: FontWeight.w800)),
+                    SizedBox(height: 20.0),
+                    userInfo.status == AppConstants.ADMINISTRATOR ? Card(): Text(''),
                     SizedBox(height: 20.0),
                     InkWell(
                       child: Text('Logout'),

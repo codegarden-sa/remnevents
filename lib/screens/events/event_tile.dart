@@ -3,6 +3,7 @@ import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../constants/constants.dart';
+import 'event_detail.dart';
 
 class EventTile extends StatelessWidget {
   final EventModel event;
@@ -10,43 +11,50 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Neumorphic(
-      margin: const EdgeInsets.fromLTRB(8, 24, 32, 4),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
-      style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(6)),
-          depth: -1,
-          lightSource: LightSource.topLeft,
-          color: Colors.transparent),
-      child: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    event.title,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Montserrat',
-                      fontSize: 17,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 2,
-              ),
-              Column(
-                children: [dayTask(event)],
-              )
-            ],
+    return InkWell(
+          child: Neumorphic(
+        margin: const EdgeInsets.fromLTRB(8, 24, 32, 4),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
+        style: NeumorphicStyle(
+            shape: NeumorphicShape.concave,
+            boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(6)),
+            depth: -1,
+            lightSource: LightSource.topLeft,
+            color: Colors.transparent),
+        child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      event.title,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontSize: 17,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 2,
+                ),
+                Column(
+                  children: [dayTask(event)],
+                )
+              ],
+            ),
           ),
         ),
+        
       ),
+      onTap: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => EventDetail(event: event)));
+          },
     );
   }
 
@@ -141,6 +149,7 @@ class EventTile extends StatelessWidget {
           ),
         )
       ],
+      
     );
   }
 }

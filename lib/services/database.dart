@@ -20,7 +20,10 @@ class DatabaseService {
     return snapshot.documents.map((doc) {
       String startHour = DateFormat('j').format(doc['startDate'].toDate());
       String endHour = DateFormat('j').format(doc['endDate'].toDate());
+
+      print(doc.documentID);
       return EventModel(
+        id:doc.documentID,
         title: doc['title'],
         department: doc['department'],
         description: doc['description'],

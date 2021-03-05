@@ -46,8 +46,8 @@ class _NavigationState extends State<Navigation> {
   }
 
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
-    final isLeader = Provider.of<AppState>(context).isLeader;
+    // final user = Provider.of<User>(context);
+    // final isLeader = Provider.of<AppState>(context).isLeader;
     return Scaffold(
       body: IndexedStack(
         children: [
@@ -84,9 +84,9 @@ class _NavigationState extends State<Navigation> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton:
-          Consumer<AppState>(builder: (context, AppState, _) {
+          Consumer<AppState>(builder: (context, appState, _) {
         return new Visibility(
-          visible: AppState.isLeader && _selectedIndex == 0,
+          visible: appState.isLeader && _selectedIndex == 0,
           child: NeumorphicButton(
             style: NeumorphicStyle(
                 shape: NeumorphicShape.flat,

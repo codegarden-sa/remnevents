@@ -13,9 +13,9 @@ import 'package:sandtonchurchapp/components/libraries/dropdown_formfield.dart';
 
 class BookEvent extends StatefulWidget {
   final Function toggleView;
-  final Function backToHomeScreen;
+  final Function home;
 
-  BookEvent({this.toggleView, this.backToHomeScreen});
+  BookEvent({this.toggleView, this.home});
 
   @override
   _BookEventState createState() => _BookEventState();
