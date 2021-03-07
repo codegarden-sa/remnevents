@@ -9,10 +9,10 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  final CollectionReference approvedEventCollection =
+  final CollectionReference eventCollection =
       Firestore.instance.collection('events');
-  final CollectionReference allEventCollection =
-      Firestore.instance.collection('events');
+  // final CollectionReference allEventCollection =
+  //     Firestore.instance.collection('events');
   final CollectionReference userCollection =
       Firestore.instance.collection('users');
 
@@ -23,7 +23,7 @@ class DatabaseService {
 
       print(doc.documentID);
       return EventModel(
-        id:doc.documentID,
+        id: doc.documentID,
         title: doc['title'],
         department: doc['department'],
         description: doc['description'],
@@ -51,13 +51,39 @@ class DatabaseService {
   }
 
   Stream<List<EventModel>> get events {
-    return allEventCollection.snapshots().map(_eventListFromSnapshot);
+    return eventCollection.snapshots().map(_eventListFromSnapshot);
   }
 
   Stream<List<EventModel>> get approvedEvents {
     try {
-      return approvedEventCollection
+      return eventCollection
           .where('status', isEqualTo: AppConstants.APPROVED)
+          .snapshots()
+          .map(_eventListFromSnapshot);
+    } on Exception catch (e) {
+      print('error getting events from firebase');
+      print(e);
+      return null;
+    }
+  }
+
+  Stream<List<EventModel>> get pendingEvents {
+    try {
+      return eventCollection
+          .where('status', isEqualTo: AppConstants.PENDING)
+          .snapshots()
+          .map(_eventListFromSnapshot);
+    } on Exception catch (e) {
+      print('error getting events from firebase');
+      print(e);
+      return null;
+    }
+  }
+  
+  Stream<List<EventModel>> get leaderEvents {
+    try {
+      return eventCollection
+          .where('userId', isEqualTo: uid)
           .snapshots()
           .map(_eventListFromSnapshot);
     } on Exception catch (e) {
@@ -78,9 +104,17 @@ class DatabaseService {
     });
   }
 
+  Future updateEvent(String id, String status) async {
+    return await eventCollection
+        .document(id)
+        .updateData({'status': status})
+        .then((event) => 'updated')
+        .catchError((error) => error);
+  }
+
   Future bookEvent(String title, String description, String department,
       DateTime startDate, DateTime endDate) async {
-    return await allEventCollection
+    return await eventCollection
         .document()
         .setData({
           'title': title,

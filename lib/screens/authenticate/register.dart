@@ -28,27 +28,42 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : SingleChildScrollView(
-      // backgroundColor: Colors.brown[100],
-      // appBar: AppBar(
-      //   backgroundColor: Colors.brown[400],
-      //   elevation: 0.0,
-      //   title: Text('Sign up to Brew Crew'),
-      //   actions: <Widget>[
-      //     FlatButton.icon(
-      //       icon: Icon(Icons.person),
-      //       label: Text('Sign In'),
-      //       onPressed: () => widget.toggleView(),
-      //     ),
-      //   ],
-      // ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Sign In', style: TextStyle(color: AppConstants.darkblue, fontSize: 25),),
+          ],
+        ),
+        shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(25.0),
+        ),
+      ),
+        backgroundColor: AppConstants.lightgrey,
+        elevation: 0.0,
+        
+      ),
+    
+    body: loading ? Loading() : Padding(
+      padding: const EdgeInsets.only(top: 30),
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
+         padding: EdgeInsets.only(left: 25, right: 25),
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.75,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(25),
+                                ),
+                                color: AppConstants.darkblue,
+                              ),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
-                             SizedBox(height: 20.0),
+                             SizedBox(height: 40.0),
                     TextFormField(
                       decoration: AppConstants.textInputDecoration
                           .copyWith(hintText: 'name'),
@@ -112,16 +127,16 @@ class _RegisterState extends State<Register> {
                   }
                 }
               ),
-              SizedBox(height: 12.0),
+              // SizedBox(height: 12.0),
               Text(
                 error,
                 style: TextStyle(color: Colors.red, fontSize: 14.0),
               ),
-              InkWell(child: Text('Sign In'), onTap: () => widget.toggleView(),)
+              InkWell(child: Text('Sign In',style: TextStyle(color: AppConstants.lightgrey, fontSize: 18)), onTap: () => widget.toggleView(),)
             ],
           ),
         ),
       ),
-    );
+    ));
   }
 }

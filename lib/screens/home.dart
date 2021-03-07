@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sandtonchurchapp/components/date_time_picker.dart';
 import 'package:sandtonchurchapp/screens/authenticate/profile.dart';
+import 'package:sandtonchurchapp/screens/events/list_events.dart';
 import 'package:sandtonchurchapp/state/app_state.dart';
 import 'calendar/calendar_events.dart';
 import '../constants/constants.dart';
-import 'events/view_event.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/models/user.dart';
@@ -34,7 +34,7 @@ class _NavigationState extends State<Navigation> {
 
   List<Widget> _widgetOptions = [
     CalendarEvents(),
-    ListEvents(),
+    ListEvents(eventListType: AppConstants.APPROVED),
     Profile(),
     BookEvent()
   ];

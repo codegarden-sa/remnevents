@@ -39,7 +39,7 @@ class AppConstants {
   ];
 
   static final textInputDecoration = InputDecoration(
-    fillColor: Colors.white,
+    fillColor: AppConstants.lightgrey,
     filled: true,
     contentPadding: EdgeInsets.all(12.0),
     enabledBorder: OutlineInputBorder(
@@ -50,7 +50,3 @@ class AppConstants {
     ),
   );
 }
-
-enum UserType { viewer, leader, administrator }
-
-enum EventType { pending, approved, declined, deleted }

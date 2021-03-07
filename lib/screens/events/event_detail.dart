@@ -2,8 +2,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
-
+import 'package:sandtonchurchapp/components/admin_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:sandtonchurchapp/state/app_state.dart';
 class EventDetail extends StatefulWidget {
   final EventModel event;
   const EventDetail({Key key, this.event}) : super(key: key);
@@ -13,56 +14,15 @@ class EventDetail extends StatefulWidget {
 }
 
 class _EventDetailState extends State<EventDetail> {
+  void updateSnackBar() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Status Updated')));
+  }
+
   @override
   Widget build(BuildContext context) {
-    int _currentIndex = -1;
-
-    void checkClick(int i) {
-      setState(() {
-        _currentIndex = i;
-      });
-    }
-
-    final toggleSwitch = Padding(
-        padding: EdgeInsets.only(top: 40),
-        child: ToggleSwitch(
-          minWidth: 60.0,
-          minHeight: 40.0,
-          initialLabelIndex: -1,
-          cornerRadius: 9.0,
-          // activeFgColor: Colors.white,
-          activeBgColor: Colors.blue,
-          inactiveBgColor: AppConstants.lightgrey,
-          inactiveFgColor: Colors.white70,
-          labels: ['', '', '', ''],
-          icons: [
-            FontAwesomeIcons.thumbsUp,
-            FontAwesomeIcons.clock,
-            FontAwesomeIcons.thumbsDown,
-            FontAwesomeIcons.trash,
-          ],
-          iconSize: 30.0,
-          activeBgColors: [Colors.blue, Colors.blue, Colors.blue, Colors.blue],
-          onToggle: (index) {
-            checkClick(index);
-            switch (index) {
-              case 0:
-                print('approved');
-                break;
-              case 1:
-                print('pending');
-                break;
-              case 2:
-                print('declined');
-                break;
-              case 3:
-                print('deleted');
-                break;
-              default:
-            }
-          },
-        ));
-
+    final isAdmin = Provider.of<AppState>(context, listen: false).isAdmin;
+    final isLeader = Provider.of<AppState>(context, listen: false).isLeader;
     final coursePrice = Container(
       padding: const EdgeInsets.all(7.0),
       decoration: new BoxDecoration(
@@ -78,39 +38,6 @@ class _EventDetailState extends State<EventDetail> {
       widget.event.description,
       style: TextStyle(fontSize: 18.0),
     );
-    final adminButtons = Padding(
-        padding: EdgeInsets.fromLTRB(70.0, 90.0, 70.0, 0),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          GestureDetector(
-            child: FaIcon(
-              FontAwesomeIcons.solidThumbsUp,
-              size: 30,
-              color: Colors.blue,
-            ),
-            onTap: () {
-              print('approved');
-            },
-          ),
-          GestureDetector(
-              child: FaIcon(
-                FontAwesomeIcons.solidHourglass,
-                size: 30,
-                color: AppConstants.lightgrey,
-              ),
-              onTap: () {
-                print('pending');
-              }),
-          GestureDetector(
-              child: FaIcon(
-                FontAwesomeIcons.solidThumbsDown,
-                size: 30,
-                color: AppConstants.lightgrey,
-              ),
-              onTap: () {
-                print('declined');
-              }),
-        ]));
     final bottomContent = Container(
       // height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
@@ -119,7 +46,11 @@ class _EventDetailState extends State<EventDetail> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[bottomContentText, toggleSwitch],
+          children: <Widget>[
+            bottomContentText,
+            isAdmin == true ?
+            AdminBar(event: widget.event, updateSnackBar: updateSnackBar) : SizedBox(height: 0.1,)
+          ],
         ),
       ),
     );
@@ -142,22 +73,18 @@ class _EventDetailState extends State<EventDetail> {
           widget.event.title,
           style: TextStyle(color: Colors.white, fontSize: 45.0),
         ),
-        // SizedBox(height: 30.0),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: <Widget>[
-        //     Expanded(flex: 1, child: Text('blablab')),
-        //     Expanded(
-        //         flex: 6,
-        //         child: Padding(
-        //             padding: EdgeInsets.only(left: 10.0),
-        //             child: Text(
-        //               'lesson.level',
-        //               style: TextStyle(color: Colors.white),
-        //             ))),
-        //     Expanded(flex: 1, child: coursePrice)
-        //   ],
-        // ),
+        SizedBox(height: 30.0),
+
+        isLeader == true || isAdmin == true ?
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(color: Colors.white, child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Expanded(flex: 1, child: Text(widget.event.status)),
+            ))
+          ],
+        ) : SizedBox(height: 0.1,),
       ],
     );
 
@@ -197,6 +124,7 @@ class _EventDetailState extends State<EventDetail> {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[topContent, bottomContent],
         ),
       ),

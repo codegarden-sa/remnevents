@@ -17,7 +17,7 @@ class _EventListState extends State<EventList> {
     final events = Provider.of<List<EventModel>>(context) ?? [];
 
     return Scaffold(
-          appBar: AppBar(title: Text('All Programs', style: TextStyle(color: AppConstants.darkblue,fontSize: 30),), elevation: 0.0, backgroundColor: Colors.transparent,),
+          // appBar: AppBar(title: Text('All Programs', style: TextStyle(color: AppConstants.darkblue,fontSize: 30),), elevation: 0.0, backgroundColor: Colors.transparent,),
           body: SafeArea(
                       child: SingleChildScrollView(
                                               child: Column(
