@@ -12,7 +12,8 @@ import 'package:provider/provider.dart';
 class ListEvents extends StatelessWidget {
   final String eventListType;
   final String uid;
-  ListEvents({this.eventListType, this.uid});
+  final String listTitle;
+  ListEvents({this.eventListType, this.uid, this.listTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -20,27 +21,32 @@ class ListEvents extends StatelessWidget {
         child: StreamProvider<List<EventModel>>.value(
             value: eventListType == AppConstants.APPROVED
                 ? DatabaseService().approvedEvents
-                : eventListType == AppConstants.LEADER 
-                ? DatabaseService(uid: uid).leaderEvents
-                : DatabaseService().pendingEvents,
+                : eventListType == AppConstants.LEADER
+                    ? DatabaseService(uid: uid).leaderEvents
+                    : DatabaseService().pendingEvents,
             child: SafeArea(
               child: Scaffold(
-                   appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Events', style: TextStyle(color: AppConstants.darkblue, fontSize: 25),),
-          ],
-        ),
-        shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(25.0),
-        ),
-      ),
-        backgroundColor: AppConstants.lightgrey,
-        elevation: 0.0,
-        
-      ),
+                appBar: AppBar(
+                   iconTheme: IconThemeData(
+    color: AppConstants.darkblue, //change your color here
+  ),
+                  title: 
+                      Text(
+                        listTitle,
+                        style: TextStyle(
+                            color: AppConstants.darkblue, fontSize: 25),
+                      ),
+                  centerTitle: true,
+                  //   ],
+                  // ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(25.0),
+                    ),
+                  ),
+                  backgroundColor: AppConstants.lightgrey,
+                  elevation: 0.0,
+                ),
                 body: Container(
                   // color: Colors.green,
                   child: EventList(),

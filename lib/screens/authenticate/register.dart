@@ -33,7 +33,7 @@ class _RegisterState extends State<Register> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Sign In', style: TextStyle(color: AppConstants.darkblue, fontSize: 25),),
+            Text('Register', style: TextStyle(color: AppConstants.darkblue, fontSize: 25),),
           ],
         ),
         shape: RoundedRectangleBorder(

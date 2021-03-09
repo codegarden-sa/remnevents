@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sandtonchurchapp/components/date_time_picker.dart';
 import 'package:sandtonchurchapp/screens/authenticate/profile.dart';
 import 'package:sandtonchurchapp/screens/events/list_events.dart';
+import 'package:sandtonchurchapp/screens/events/test_drop.dart';
 import 'package:sandtonchurchapp/state/app_state.dart';
 import 'calendar/calendar_events.dart';
 import '../constants/constants.dart';
@@ -34,9 +35,8 @@ class _NavigationState extends State<Navigation> {
 
   List<Widget> _widgetOptions = [
     CalendarEvents(),
-    ListEvents(eventListType: AppConstants.APPROVED),
+    ListEvents(eventListType: AppConstants.APPROVED, listTitle: 'All Events',),
     Profile(),
-    BookEvent()
   ];
 
   void _onItemTap(int index) {
@@ -83,8 +83,7 @@ class _NavigationState extends State<Navigation> {
         elevation: 0,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton:
-          Consumer<AppState>(builder: (context, appState, _) {
+      floatingActionButton: Consumer<AppState>(builder: (context, appState, _) {
         return new Visibility(
           visible: appState.isLeader && _selectedIndex == 0,
           child: NeumorphicButton(
@@ -94,8 +93,15 @@ class _NavigationState extends State<Navigation> {
                 depth: -1,
                 lightSource: LightSource.topLeft,
                 color: AppConstants.grey),
-            child: Icon(Icons.add, size: 30, color: Colors.white54,),
-            onPressed: () => _onItemTap(3),
+            child: Icon(
+              Icons.add,
+              size: 30,
+              color: Colors.white54,
+            ),
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) =>BookEvent()));
+            },
           ),
         );
       }),

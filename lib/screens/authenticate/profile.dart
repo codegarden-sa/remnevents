@@ -45,11 +45,11 @@ class Profile extends StatelessWidget {
                 
                 if(userInfo.status == AppConstants.ADMINISTRATOR)
                 Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ListEvents(eventListType: AppConstants.PENDING,)));
+                context, MaterialPageRoute(builder: (context) => ListEvents(eventListType: AppConstants.PENDING, listTitle: 'Pending Events',)));
 
                 if(userInfo.status == AppConstants.LEADER)
                 Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ListEvents(eventListType: AppConstants.LEADER, uid: userInfo.uid)));
+                context, MaterialPageRoute(builder: (context) => ListEvents(eventListType: AppConstants.LEADER, uid: userInfo.uid, listTitle:'My Events')));
 
                 },): Text(''),
                     SizedBox(height: 20.0),
