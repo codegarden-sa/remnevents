@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:intl/intl.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/models/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
   final String uid;

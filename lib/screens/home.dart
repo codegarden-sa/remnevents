@@ -3,11 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sandtonchurchapp/components/date_time_picker.dart';
 import 'package:sandtonchurchapp/screens/authenticate/profile.dart';
 import 'package:sandtonchurchapp/screens/events/list_events.dart';
-import 'package:sandtonchurchapp/screens/events/test_drop.dart';
+import 'package:sandtonchurchapp/screens/events/event_tile.dart';
 import 'package:sandtonchurchapp/state/app_state.dart';
 import 'calendar/calendar_events.dart';
 import '../constants/constants.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+// import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/models/user.dart';
 import 'events/book_event.dart';
@@ -35,7 +35,10 @@ class _NavigationState extends State<Navigation> {
 
   List<Widget> _widgetOptions = [
     CalendarEvents(),
-    ListEvents(eventListType: AppConstants.APPROVED, listTitle: 'All Events',),
+    ListEvents(
+      eventListType: AppConstants.APPROVED,
+      listTitle: 'All Events',
+    ),
     Profile(),
   ];
 
@@ -86,23 +89,26 @@ class _NavigationState extends State<Navigation> {
       floatingActionButton: Consumer<AppState>(builder: (context, appState, _) {
         return new Visibility(
           visible: appState.isLeader && _selectedIndex == 0,
-          child: NeumorphicButton(
-            style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape: NeumorphicBoxShape.circle(),
-                depth: -1,
-                lightSource: LightSource.topLeft,
-                color: AppConstants.grey),
-            child: Icon(
-              Icons.add,
-              size: 30,
-              color: Colors.white54,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>BookEvent()));
-            },
-          ),
+          // child: NeumorphicButton(
+          //   style: NeumorphicStyle(
+          //       shape: NeumorphicShape.flat,
+          //       boxShape: NeumorphicBoxShape.circle(),
+          //       depth: -1,
+          //       lightSource: LightSource.topLeft,
+          //       color: AppConstants.grey),
+          child: FloatingActionButton(
+            // backgroundColor: AppConstants.guava.withOpacity(0.8),
+              child: Icon(
+                Icons.add,
+                size: 30,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BookEvent()));
+              }),
+          // },
+          // ),
         );
       }),
     );

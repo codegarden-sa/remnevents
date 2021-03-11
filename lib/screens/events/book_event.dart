@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/screens/events/test_drop.dart';
+import 'package:sandtonchurchapp/screens/events/event_tile.dart';
 import 'package:sandtonchurchapp/screens/home.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/constants/loading.dart';
@@ -196,7 +196,7 @@ class _BookEventState extends State<BookEvent> {
                                   });
 
                                   if (eventBooked != null) {
-                                    ScaffoldMessenger.of(context)
+                                    Scaffold.of(context)
                                         .showSnackBar(snackBar);
                                   } else
                                     print('could not book event');

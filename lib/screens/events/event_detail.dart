@@ -15,7 +15,7 @@ class EventDetail extends StatefulWidget {
 
 class _EventDetailState extends State<EventDetail> {
   void updateSnackBar() {
-    ScaffoldMessenger.of(context)
+    Scaffold.of(context)
         .showSnackBar(SnackBar(content: Text('Status Updated')));
   }
 
@@ -56,31 +56,26 @@ class _EventDetailState extends State<EventDetail> {
     );
 
     final topContentText = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        SizedBox(height: 120.0),
-        // Icon(
-        //   Icons.directions_car,
-        //   color: Colors.white,
-        //   size: 40.0,
-        // ),
-        // Container(
-        //   width: 90.0,
-        //   child: new Divider(color: Colors.green),
-        // ),
-        SizedBox(height: 10.0),
         Text(
           widget.event.title,
-          style: TextStyle(color: Colors.white, fontSize: 45.0),
+          style: TextStyle(color: Colors.white, fontSize: 25.0),
         ),
-        SizedBox(height: 30.0),
+        // SizedBox(height: 30.0),
 
         isLeader == true || isAdmin == true ?
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(color: Colors.white, child: Padding(
-              padding: const EdgeInsets.all(8.0),
+            Container(
+               decoration: BoxDecoration(
+    color: AppConstants.skyblue,
+   borderRadius: BorderRadius.all(Radius.circular(2.9))
+ ),
+               child: Padding(
+              padding: const EdgeInsets.all(2.0),
               child: Expanded(flex: 1, child: Text(widget.event.status)),
             ))
           ],
@@ -90,23 +85,25 @@ class _EventDetailState extends State<EventDetail> {
 
     final topContent = Stack(
       children: <Widget>[
+        Flexible(
+                  child: Container(
+              padding: EdgeInsets.only(left: 10.0),
+              height: MediaQuery.of(context).size.height * 0.5,
+              decoration: new BoxDecoration(
+                image: new DecorationImage(
+                  image: AssetImage('assets/images/sda-sandton.png'),
+                  fit: BoxFit.cover,
+                ),
+              )),
+        ),
         Container(
-            padding: EdgeInsets.only(left: 10.0),
             height: MediaQuery.of(context).size.height * 0.5,
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                image: AssetImage('assets/images/sda-sandton.png'),
-                fit: BoxFit.cover,
-              ),
-            )),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.5,
-          padding: EdgeInsets.all(40.0),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, .97)),
-          child: Center(
-            child: topContentText,
-          ),
+            padding: EdgeInsets.fromLTRB(20, 120, 20, 20),
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, .97)),
+            child: Center(
+              child: topContentText,
+            ),
         ),
         Positioned(
           left: 8.0,
@@ -123,9 +120,11 @@ class _EventDetailState extends State<EventDetail> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[topContent, bottomContent],
+        child: SingleChildScrollView(
+                  child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[topContent, bottomContent],
+          ),
         ),
       ),
     );

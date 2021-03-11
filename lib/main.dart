@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lit_firebase_auth/lit_firebase_auth.dart' as lit;
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/screens/home.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
@@ -9,6 +8,7 @@ import 'package:sandtonchurchapp/state/app_state.dart';
 import 'constants/palette.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sandtonchurchapp/models/user.dart';
+// import 'package:device_simulator/device_simulator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,6 +18,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final bool debugEnableDeviceSimulator = true;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Material App',  
+        title: 'Remnevents',  
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.muliTextTheme(),
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
             color: Palette.darkBlue,
           ),
         ),
-        home: HomeScreen(),
+        home:  HomeScreen(),
       ),
     );
   }
