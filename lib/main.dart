@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/screens/home.dart';
@@ -12,7 +13,6 @@ import 'package:sandtonchurchapp/models/user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
 
   runApp(MyApp());
 }
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Remnevents',  
+        title: 'Remnevents',
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: GoogleFonts.muliTextTheme(),
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             color: Palette.darkBlue,
           ),
         ),
-        home:  HomeScreen(),
+        home: HomeScreen(),
       ),
     );
   }

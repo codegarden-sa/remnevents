@@ -153,11 +153,10 @@ class _CalendarEventsState extends State<CalendarEvents> {
                         ),
                       ),
                     ),
-                    SingleChildScrollView(
-                                          child: Container(
+                    Container(
                 // padding: EdgeInsets.only(left: 30),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.55,
+                height: MediaQuery.of(context).size.height ,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
@@ -165,8 +164,9 @@ class _CalendarEventsState extends State<CalendarEvents> {
                   ),
                   color: AppConstants.darkblue,
                 ),
-                        child: Stack(
-                          children: [Column(
+                        child: SingleChildScrollView(
+                          child:
+                            Column(
                             children: [
                             // Padding(
                             // padding: EdgeInsetsDirectional.fromSTEB(1.0, 2.0, 295, 0.0),
@@ -207,10 +207,10 @@ crossAxisAlignment: CrossAxisAlignment.center,
                                       ],
                                     ),
                             ],
-                          ),]
+                          ),
                         ),
                       ),
-                    )
+                    
                   ],
                 );
               }),

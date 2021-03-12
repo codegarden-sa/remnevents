@@ -16,11 +16,7 @@ class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
     final events = Provider.of<List<EventModel>>(context) ?? [];
-
-    return Scaffold(
-      // appBar: AppBar(title: Text('All Programs', style: TextStyle(color: AppConstants.darkblue,fontSize: 30),), elevation: 0.0, backgroundColor: Colors.transparent,),
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SingleChildScrollView(
           child: Column(
             children: [
               Padding(
@@ -29,7 +25,7 @@ class _EventListState extends State<EventList> {
                   // margin: EdgeInsets.only(bottom: 20),
                   // padding: EdgeInsets.only(left: 15, right: 15),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.69,
+                  height: MediaQuery.of(context).size.height,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
@@ -41,6 +37,8 @@ class _EventListState extends State<EventList> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                     child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
                       itemCount: events.length,
                       itemBuilder: (context, index) {
                         return EventTile(event: events[index]);
@@ -53,8 +51,6 @@ class _EventListState extends State<EventList> {
               ),
             ],
           ),
-        ),
-      ),
     );
   }
 }
