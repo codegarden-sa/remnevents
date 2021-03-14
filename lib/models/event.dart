@@ -12,6 +12,8 @@ class EventModel {
   final DateTime createdAt;
   DateTime modifiedAt;
   final String userId;
+  int notificationId;
+  int notificationTime;
 
   EventModel(
       {this.id,

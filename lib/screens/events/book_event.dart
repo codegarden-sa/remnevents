@@ -26,7 +26,7 @@ class BookEvent extends StatefulWidget {
   _BookEventState createState() => _BookEventState();
 }
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
 class _BookEventState extends State<BookEvent> {
   final AuthService _auth = AuthService();
@@ -96,7 +96,7 @@ class _BookEventState extends State<BookEvent> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     return Scaffold(
-      key: scaffoldKey,
+      key: _scaffoldKey,
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: AppConstants.lightgrey,
@@ -196,7 +196,7 @@ class _BookEventState extends State<BookEvent> {
                                   });
 
                                   if (eventBooked != null) {
-                                    Scaffold.of(context)
+                                   _scaffoldKey.currentState
                                         .showSnackBar(snackBar);
                                   } else
                                     print('could not book event');

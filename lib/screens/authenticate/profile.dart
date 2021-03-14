@@ -39,8 +39,11 @@ class Profile extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 40, fontWeight: FontWeight.w800)),
                     SizedBox(height: 20.0),
-                    userInfo.status == AppConstants.ADMINISTRATOR || userInfo.status == AppConstants.LEADER ? RaisedButton(child: Text('Events Panel'),
-                textColor: Colors.grey,
+                    userInfo.status == AppConstants.ADMINISTRATOR || userInfo.status == AppConstants.LEADER ? RaisedButton(
+                      color: AppConstants.darkblue,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4))),
+                      child: Text(userInfo.status.substring(0,1).toUpperCase()+userInfo.status.substring(1) + ' Events Panel'),
+                textColor: Colors.white,
                 onPressed: () {
                 
                 if(userInfo.status == AppConstants.ADMINISTRATOR)
