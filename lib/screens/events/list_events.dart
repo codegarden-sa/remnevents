@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
 import 'package:sandtonchurchapp/screens/events/event_list.dart';
-import 'package:sandtonchurchapp/screens/events/event_tile_.dart';
 import 'package:sandtonchurchapp/services/events_firestore_services.dart';
 // import '../models/event.dart';÷
 import 'package:sandtonchurchapp/models/event.dart';
@@ -27,15 +26,14 @@ class ListEvents extends StatelessWidget {
             child: SafeArea(
               child: Scaffold(
                 appBar: AppBar(
-                   iconTheme: IconThemeData(
-    color: AppConstants.darkblue, //change your color here
-  ),
-                  title: 
-                      Text(
-                        listTitle,
-                        style: TextStyle(
-                            color: AppConstants.darkblue, fontSize: 25),
-                      ),
+                  iconTheme: IconThemeData(
+                    color: AppConstants.darkblue, //change your color here
+                  ),
+                  title: Text(
+                    listTitle,
+                    style:
+                        TextStyle(color: AppConstants.darkblue, fontSize: 25),
+                  ),
                   centerTitle: true,
                   //   ],
                   // ),

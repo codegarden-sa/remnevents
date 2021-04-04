@@ -104,40 +104,45 @@ class _NotificationBarState extends State<NotificationBar> {
               onToggle: (index) async {
                 switch (index) {
                   case 0:
-                    print('it is clicked ...'+ widget.event.notificationId.toString());
-                    if (widget.event.startDate.isAfter(DateTime.now())) {
+                    print('it is clicked ...' +
+                        widget.event.notificationId.toString());
+                    if (widget.event.startDate.isAfter(DateTime.now()) &&
+                        widget.event.status == AppConstants.APPROVED) {
                       // _scheduledDateTime =
                       //     widget.event.startDate.subtract(Duration(hours: 1));
-                      _scheduledDateTime = DateTime.now().add(Duration(seconds: 5));
+                      _scheduledDateTime =
+                          DateTime.now().add(Duration(seconds: 5));
                       _scheduleNotification();
-                      print(
-                          'time for event => ' + widget.event.startDate.toString());
-                      print(
-                          'schedule time 1hr => ' + _scheduledDateTime.toString());
+                      print('time for event => ' +
+                          widget.event.startDate.toString());
+                      print('schedule time 1hr => ' +
+                          _scheduledDateTime.toString());
                       widget.updateSnackBar('1hr Reminder Scheduled');
                     }
                     break;
                   case 1:
-                    if (widget.event.startDate.isAfter(DateTime.now())) {
+                    if (widget.event.startDate.isAfter(DateTime.now()) &&
+                        widget.event.status == AppConstants.APPROVED) {
                       _scheduledDateTime =
                           widget.event.startDate.subtract(Duration(hours: 2));
                       _scheduleNotification();
-                      print(
-                          'time for event => ' + widget.event.startDate.toString());
-                      print(
-                          'schedule time 1hr => ' + _scheduledDateTime.toString());
+                      print('time for event => ' +
+                          widget.event.startDate.toString());
+                      print('schedule time 1hr => ' +
+                          _scheduledDateTime.toString());
                       widget.updateSnackBar('2hr Reminder Scheduled');
                     }
                     break;
                   case 2:
-                    if (widget.event.startDate.isAfter(DateTime.now())) {
+                    if (widget.event.startDate.isAfter(DateTime.now()) &&
+                        widget.event.status == AppConstants.APPROVED) {
                       _scheduledDateTime =
                           widget.event.startDate.subtract(Duration(hours: 24));
                       _scheduleNotification();
-                      print(
-                          'time for event => ' + widget.event.startDate.toString());
-                      print(
-                          'schedule time 1hr => ' + _scheduledDateTime.toString());
+                      print('time for event => ' +
+                          widget.event.startDate.toString());
+                      print('schedule time 1hr => ' +
+                          _scheduledDateTime.toString());
                       widget.updateSnackBar('24hr Reminder Scheduled');
                     }
                     break;

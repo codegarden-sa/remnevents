@@ -59,9 +59,8 @@ class _DateTimeFldState extends State<DateTimeFld> {
                   setState(() {
                     endDate = date;
                   });
-                  if (startDate != null &&
-                      endDate != null)
-                    widget.setDateTime(startDate,endDate);
+                  if (startDate != null && endDate != null)
+                    widget.setDateTime(startDate, endDate);
                   else
                     print('date fields are required');
                 },

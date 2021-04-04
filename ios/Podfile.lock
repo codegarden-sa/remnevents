@@ -300,7 +300,7 @@ PODS:
     - FirebaseCore (~> 6.10)
     - GTMSessionFetcher/Core (~> 1.1)
   - Flutter (1.0.0)
-  - flutter_keyboard_visibility (0.0.1):
+  - flutter_local_notifications (0.0.1):
     - Flutter
   - google_sign_in (0.0.1):
     - Flutter
@@ -368,8 +368,6 @@ PODS:
   - GTMSessionFetcher/Core (1.5.0)
   - GTMSessionFetcher/Full (1.5.0):
     - GTMSessionFetcher/Core (= 1.5.0)
-  - image_picker (0.0.1):
-    - Flutter
   - leveldb-library (1.22)
   - nanopb (1.30906.0):
     - nanopb/decode (= 1.30906.0)
@@ -378,10 +376,6 @@ PODS:
   - nanopb/encode (1.30906.0)
   - path_provider (0.0.1):
     - Flutter
-  - phone_number (0.6.2):
-    - Flutter
-    - PhoneNumberKit/PhoneNumberKitCore (~> 3.2.0)
-  - PhoneNumberKit/PhoneNumberKitCore (3.2.0)
   - PromisesObjC (1.2.12)
   - shared_preferences (0.0.1):
     - Flutter
@@ -393,11 +387,9 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
-  - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
-  - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
-  - phone_number (from `.symlinks/plugins/phone_number/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 SPEC REPOS:
@@ -424,7 +416,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
-    - PhoneNumberKit
     - PromisesObjC
 
 EXTERNAL SOURCES:
@@ -440,16 +431,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
-  flutter_keyboard_visibility:
-    :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   google_sign_in:
     :path: ".symlinks/plugins/google_sign_in/ios"
-  image_picker:
-    :path: ".symlinks/plugins/image_picker/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
-  phone_number:
-    :path: ".symlinks/plugins/phone_number/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
@@ -472,7 +459,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   google_sign_in: 6bd214b9c154f881422f5fe27b66aaa7bbd580cc
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
   GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
@@ -482,12 +469,9 @@ SPEC CHECKSUMS:
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
-  image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
-  phone_number: b545f5b7d9711bec0f020c7df43ae5a82119f4ad
-  PhoneNumberKit: df411d46177d1492da84e10b6c093846dd861452
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/screens/events/event_tile_.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/screens/events/event_tile.dart';
@@ -16,16 +15,20 @@ class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
     final events = Provider.of<List<EventModel>>(context) ?? [];
-    return SingleChildScrollView(
-          child: Column(
+    return 
+    SingleChildScrollView(
+          child: 
+          
+          Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 30),
                 child: Container(
-                  // margin: EdgeInsets.only(bottom: 20),
-                  // padding: EdgeInsets.only(left: 15, right: 15),
+                  // margin: EdgeInsets.only(bottom: 40),
+                  padding: EdgeInsets.only(bottom: 15),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  height: MediaQuery.of(context).size.height * .84 - kBottomNavigationBarHeight,
+
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
@@ -36,6 +39,7 @@ class _EventListState extends State<EventList> {
 
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,

@@ -63,7 +63,10 @@ class _EventDetailState extends State<EventDetail> {
             NotificationBar(
                 event: widget.event, updateSnackBar: updateSnackBar),
             isAdmin == true
-                ? AdminBar(event: widget.event, updateSnackBar: updateSnackBar, decorateStatus: decorateStatus)
+                ? AdminBar(
+                    event: widget.event,
+                    updateSnackBar: updateSnackBar,
+                    decorateStatus: decorateStatus)
                 : SizedBox(
                     height: 0.1,
                   ),
@@ -92,7 +95,7 @@ class _EventDetailState extends State<EventDetail> {
                           borderRadius: BorderRadius.all(Radius.circular(2.9))),
                       child: Padding(
                         padding: const EdgeInsets.all(2.0),
-                        child: Expanded(flex: 1, child: Text(_decoratedStatus)),
+                        child: Text(_decoratedStatus),
                       ))
                 ],
               )
@@ -104,22 +107,30 @@ class _EventDetailState extends State<EventDetail> {
 
     final topContent = Stack(
       children: <Widget>[
-        Flexible(
-          child: Container(
-              padding: EdgeInsets.only(left: 10.0),
-              height: MediaQuery.of(context).size.height * 0.5,
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  image: AssetImage('assets/images/sda-sandton.png'),
-                  fit: BoxFit.cover,
-                ),
-              )),
-        ),
+        Container(
+            padding: EdgeInsets.only(left: 10.0),
+            height: MediaQuery.of(context).size.height * 0.5,
+            decoration: new BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15),
+              ),
+              image: new DecorationImage(
+                image: AssetImage('assets/images/sda-sandton.png'),
+                fit: BoxFit.cover,
+              ),
+            )),
         Container(
           height: MediaQuery.of(context).size.height * 0.5,
           padding: EdgeInsets.fromLTRB(20, 120, 20, 20),
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, .97)),
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(58, 66, 86, .97),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(15),
+              bottomRight: Radius.circular(15),
+            ),
+          ),
           child: Center(
             child: topContentText,
           ),
@@ -137,10 +148,10 @@ class _EventDetailState extends State<EventDetail> {
       ],
     );
 
-    return Scaffold(
-      key: _scaffoldKey,
-      body: SafeArea(
-        child: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[topContent, bottomContent],
