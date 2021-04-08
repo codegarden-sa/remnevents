@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sandtonchurchapp/screens/authenticate/profile.dart';
 import 'package:sandtonchurchapp/screens/events/list_events.dart';
 import 'package:sandtonchurchapp/state/app_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'calendar/calendar_events.dart';
 import '../constants/constants.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +12,20 @@ import 'events/book_event.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
 
-  static MaterialPageRoute get route => MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
-      );
+  // static MaterialPageRoute get route => MaterialPageRoute(
+  //       builder: (context) => const HomeScreen(),
+  //     );
 
   @override
   Widget build(BuildContext context) {
     return Navigation(); //Scaffold(
   }
 }
+
 class Navigation extends StatefulWidget {
+  Navigation({
+    Key key,
+  });
   @override
   _NavigationState createState() => _NavigationState();
 }
@@ -44,6 +49,11 @@ class _NavigationState extends State<Navigation> {
   }
 
   Widget build(BuildContext context) {
+    final isLeader = Provider.of<AppState>(context, listen: true).isLeader;
+    if (isLeader)
+      print('::HOME:: this user is a leader ::');
+    else
+      print('::HOME:: not a leader at all hey');
     return Scaffold(
       body: IndexedStack(
         children: [
@@ -81,7 +91,7 @@ class _NavigationState extends State<Navigation> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Consumer<AppState>(builder: (context, appState, _) {
         return new Visibility(
-          visible: appState.isLeader && _selectedIndex == 0,
+          visible: isLeader && _selectedIndex == 0,
           child: FloatingActionButton(
               child: Icon(
                 Icons.add,

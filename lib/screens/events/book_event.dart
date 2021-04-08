@@ -41,6 +41,7 @@ class _BookEventState extends State<BookEvent> {
   DateTime startDate;
   DateTime endDate;
   String _dept;
+  int departmentIndex = 0;
 
   List<String> _departments = [
     'Department',
@@ -81,13 +82,12 @@ class _BookEventState extends State<BookEvent> {
   }
 
   void getDepartmentValue(String value) {
-      if(value != 'Department'){
-    print('received value ==> ' + value);
-
+    if (value != 'Department') {
       _dept = value;
-      }
-    // setState(() {
-    // });
+      departmentIndex = _departments.indexOf(value);
+    }
+    //workaround to prevent the selector from defaulting to the first value index
+    departmentIndex = _departments.indexOf(value);
   }
 
   final snackBar = SnackBar(content: Text('Booking submitted'));
@@ -139,6 +139,7 @@ class _BookEventState extends State<BookEvent> {
                             data: _departments,
                             label: "",
                             getDepartmentValue: getDepartmentValue,
+                            departmentIndex: departmentIndex,
                           ),
                           // _dept == 'Department' ? Text('please choose department') : SizedBox(height: 0.1,),
                           SizedBox(height: 20.0),
@@ -181,7 +182,8 @@ class _BookEventState extends State<BookEvent> {
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
-                                if (_formKey.currentState.validate() && _dept != '') {
+                                if (_formKey.currentState.validate() &&
+                                    _dept != '') {
                                   setState(() {
                                     department = _dept;
                                   });
@@ -196,15 +198,15 @@ class _BookEventState extends State<BookEvent> {
                                   });
 
                                   if (eventBooked != null) {
-                                   _scaffoldKey.currentState
+                                    _scaffoldKey.currentState
                                         .showSnackBar(snackBar);
                                   } else
                                     print('could not book event');
                                 }
-        //                         else{
-        //                             ScaffoldMessenger.of(context)
-        // .showSnackBar(SnackBar(content: Text('Please Complete All Fields')));
-        //                         }
+                                //                         else{
+                                //                             ScaffoldMessenger.of(context)
+                                // .showSnackBar(SnackBar(content: Text('Please Complete All Fields')));
+                                //                         }
                               }),
                           SizedBox(height: 12.0),
                           Text(

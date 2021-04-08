@@ -29,6 +29,6 @@ Map<DateTime, List<dynamic>> groupEvents(List<EventModel> allEvents) {
     data[date].add(event);
   });
 
-  print(data);
+  // print(data);
   return data;
 }

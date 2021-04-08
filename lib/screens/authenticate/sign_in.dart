@@ -1,8 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:sandtonchurchapp/models/user.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/constants/loading.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
+import 'package:sandtonchurchapp/services/database.dart';
 import 'package:sandtonchurchapp/state/app_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -24,39 +30,43 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final setIsLeader =
+        Provider.of<AppState>(context, listen: false).setIsLeader;
+    final setIsAdmin = Provider.of<AppState>(context, listen: false).setIsAdmin;
     return Scaffold(
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Sign In', style: TextStyle(color: AppConstants.darkblue, fontSize: 25),),
+            Text(
+              'Sign In',
+              style: TextStyle(color: AppConstants.darkblue, fontSize: 25),
+            ),
           ],
         ),
         shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(25.0),
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(25.0),
+          ),
         ),
-      ),
         backgroundColor: AppConstants.lightgrey,
         elevation: 0.0,
-        
       ),
-    
-    body: loading
-        ? Loading()
-        : Padding(
-         padding: const EdgeInsets.only(top: 30),
-          child: Container(
-                              padding: EdgeInsets.only(left: 25, right: 15),
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height * 0.75,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25),
-                                  topRight: Radius.circular(25),
-                                ),
-                                color: AppConstants.darkblue,
-                              ),
+      body: loading
+          ? Loading()
+          : Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Container(
+                padding: EdgeInsets.only(left: 25, right: 15),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
+                  color: AppConstants.darkblue,
+                ),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -66,7 +76,8 @@ class _SignInState extends State<SignIn> {
                       TextFormField(
                         decoration: AppConstants.textInputDecoration
                             .copyWith(hintText: 'email'),
-                        validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                        validator: (val) =>
+                            val.isEmpty ? 'Enter an email' : null,
                         onChanged: (val) {
                           setState(() => email = val);
                         },
@@ -93,30 +104,60 @@ class _SignInState extends State<SignIn> {
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
                               setState(() => loading = true);
-                              dynamic result = await _auth
+                              dynamic uid = await _auth
                                   .signInWithEmailAndPassword(email, password);
-                              if (result == null) {
-                                setState(() {
-                                  loading = false;
-                                  error =
-                                      'Could not sign in with those credentials';
-                                });
-                              } else {
-                                setState(() => loading = false);
-                                
-                                print('user logged in successfully');
+
+                              if (uid != null) {
+                                // setState(() => loading = false);
+                                print(':: signin :: results' + uid);
+
+                                DatabaseService(uid: uid).refreshUserStatus().then(
+                                    (subscription) async {
+                                  final SharedPreferences sharedPreferences =
+                                      await SharedPreferences.getInstance();
+                                  StreamSubscription<UserDetails> sub =
+                                      subscription;
+                                  sub.onData((userInfo) {
+                                    sharedPreferences.setString('uid', uid);
+                                    print(':: sing in :: inserting name ' +
+                                        userInfo.name);
+                                    sharedPreferences.setString(
+                                        'name', userInfo.name);
+
+                                    sharedPreferences.setString(
+                                        'status', userInfo.status);
+                                    print(
+                                        'Inserting/Refreshing user status [status]:: ' +
+                                            userInfo.status);
+
+                                    if (userInfo.status != null) if (userInfo
+                                                .status ==
+                                            AppConstants.LEADER ||
+                                        userInfo.status ==
+                                            AppConstants.ADMINISTRATOR) {
+                                      setIsAdmin(userInfo.status);
+                                      setIsLeader(userInfo.status);
+                                    }
+                                  });
+                                }).catchError((error) => print(
+                                    ':: sign in :: error refreshing status from sign in ' +
+                                        error.toString()));
                               }
+                            } else {
+                              setState(() => loading = false);
+                              //TODO: include a snackbar to inform the user
+                              print(
+                                  ':: sign in :: error signing in this user, check logs for details ');
                             }
                           }),
-                      // SizedBox(height: 12.0),
-                      // Text(
-                      //   error,
-                      //   style: TextStyle(color: Colors.red, fontSize: 14.0),
-                      // ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
-                          child: Text('Register', style: TextStyle(color: AppConstants.lightgrey, fontSize: 18),),
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                                color: AppConstants.lightgrey, fontSize: 18),
+                          ),
                           onTap: () => widget.toggleView(),
                         ),
                       )
@@ -124,7 +165,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
-        ),
-          );
+            ),
+    );
   }
 }

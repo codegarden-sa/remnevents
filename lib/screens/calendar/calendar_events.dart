@@ -47,16 +47,17 @@ class _CalendarEventsState extends State<CalendarEvents> {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 List<EventModel> allEvents = snapshot.data;
-                print('allEvents');
                 if (allEvents.isNotEmpty) {
                   _events = groupEvents(allEvents);
                 } else {
                   _events = {};
                   _selectedEvents = [];
                 }
-              } else {
-                print('no data in snapshot');
-              }
+              } 
+              
+              // else {
+              //   print('no data in snapshot');
+              // }
               return ListView(
                 children: <Widget>[
                   Container(

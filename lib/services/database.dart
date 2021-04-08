@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
 import 'package:sandtonchurchapp/models/event.dart';
 import 'package:sandtonchurchapp/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseService {
   final String uid;
@@ -21,7 +23,7 @@ class DatabaseService {
       String startHour = DateFormat('j').format(doc['startDate'].toDate());
       String endHour = DateFormat('j').format(doc['endDate'].toDate());
 
-      print(doc.documentID);
+      // print(doc.documentID);
       return EventModel(
         id: doc.documentID,
         title: doc['title'],
@@ -41,6 +43,7 @@ class DatabaseService {
   }
 
   UserDetails _userInfoFromSnapshot(DocumentSnapshot snapshot) {
+    print(':: DATABASE :: mapping user details');
     return UserDetails(
         uid: uid,
         name: snapshot.data['name'],
@@ -79,7 +82,7 @@ class DatabaseService {
       return null;
     }
   }
-  
+
   Stream<List<EventModel>> get leaderEvents {
     try {
       return eventCollection
@@ -133,6 +136,43 @@ class DatabaseService {
   }
 
   Stream<UserDetails> get userDetails {
-    return userCollection.document(uid).snapshots().map(_userInfoFromSnapshot);
+    try {
+      return userCollection
+          .document(uid)
+          .snapshots()
+          .map(_userInfoFromSnapshot)
+          .asBroadcastStream(); //allow for morethan one listener
+    } catch (error) {
+      print(error.toString());
+      return null;
+    }
+  }
+
+  Future refreshUserStatus() async {
+    Stream<UserDetails> userDetails = DatabaseService(uid: uid).userDetails;
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+
+    print(':: Database :: about to refresh');
+
+    return userDetails.listen(
+        (userData) {
+          sharedPreferences.setString('uid', uid);
+          print(':: Database :: inserting name ' + userData.name);
+          sharedPreferences.setString('name', userData.name);
+
+          sharedPreferences.setString('status', userData.status);
+          print(
+              'Inserting/Refreshing user status [status]:: ' + userData.status);
+              
+          return userData.status;
+        },
+        onError: (error) {
+          print('Error when getting user details ' + error.toString());
+        },
+        cancelOnError: false,
+        onDone: () {
+          print('Done getting user details');
+        });
   }
 }

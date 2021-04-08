@@ -6,6 +6,7 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+height: 40,
 
            decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -13,12 +14,12 @@ class Loading extends StatelessWidget {
                     topRight: Radius.circular(25),
                   ),
                   // color: AppConstants.darkblue,
-      color: Colors.black12,
+      color: Colors.black12.withAlpha(100),
                 ),
       child: Center(
         child: SpinKitThreeBounce(
           color: AppConstants.darkblue,
-          size: 50.0,
+          size: 20.0,
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/constants/loading.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Register extends StatefulWidget {
 
@@ -121,8 +122,12 @@ class _RegisterState extends State<Register> {
                     if(result == null) {
                       setState(() {
                         loading = false;
-                        error = 'Please supply a valid email';
+                        error = 'User Registration Failed';
                       });
+                    }else{
+                         final SharedPreferences sharedPreferences =
+                                  await SharedPreferences.getInstance();
+                              sharedPreferences.setString('email', email);
                     }
                   }
                 }

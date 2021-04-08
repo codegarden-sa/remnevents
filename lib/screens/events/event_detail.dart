@@ -81,7 +81,7 @@ class _EventDetailState extends State<EventDetail> {
       children: <Widget>[
         Text(
           widget.event.title,
-          style: TextStyle(color: Colors.white, fontSize: 25.0),
+          style: TextStyle(color: AppConstants.guava, fontSize: 25.0, fontWeight: FontWeight.w900,),
         ),
         // SizedBox(height: 30.0),
 
@@ -110,6 +110,7 @@ class _EventDetailState extends State<EventDetail> {
         Container(
             padding: EdgeInsets.only(left: 10.0),
             height: MediaQuery.of(context).size.height * 0.5,
+            margin: EdgeInsets.only(top: 5),
             decoration: new BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(15),
@@ -137,7 +138,7 @@ class _EventDetailState extends State<EventDetail> {
         ),
         Positioned(
           left: 8.0,
-          top: 60.0,
+          top: 40.0,
           child: InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -148,8 +149,10 @@ class _EventDetailState extends State<EventDetail> {
       ],
     );
 
-    return SafeArea(
-      child: Scaffold(
+    return 
+    SafeArea(
+      child: 
+      Scaffold(
         key: _scaffoldKey,
         body: SingleChildScrollView(
           child: Column(

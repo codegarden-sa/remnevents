@@ -9,11 +9,13 @@ class DepartmentSelector extends StatelessWidget {
   final List<String> data;
   final String label;
   final Function getDepartmentValue;
+  int departmentIndex;
 
   DepartmentSelector(
       {@required this.data,
       @required this.label,
-      @required this.getDepartmentValue});
+      @required this.getDepartmentValue,
+      this.departmentIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +37,12 @@ class DepartmentSelector extends StatelessWidget {
                     child: Padding(
                         child: DirectSelectList<String>(
                           values: data,
-                          defaultItemIndex: 0,
+                          defaultItemIndex: departmentIndex,
                           itemBuilder: (String value) =>
                               getDropDownMenuItem(value),
                           focusedItemDecoration: _getDslDecoration(),
                         ),
-                        padding: EdgeInsets.only(left: 12))),
+                        padding: EdgeInsets.only(left: 18))),
                 Padding(
                   padding: EdgeInsets.only(right: 8),
                   child: _getDropdownIcon(),
@@ -55,7 +57,7 @@ class DepartmentSelector extends StatelessWidget {
 
   DirectSelectItem<String> getDropDownMenuItem(String value) {
     return DirectSelectItem<String>(
-        itemHeight: 56,
+        itemHeight: 64,
         value: value,
         itemBuilder: (context, value) {
           // print('the value dept: ==> ' + value);

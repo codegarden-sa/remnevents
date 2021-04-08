@@ -3,12 +3,14 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sandtonchurchapp/screens/home.dart';
+import 'package:sandtonchurchapp/screens/splash.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/services/database.dart';
 import 'package:sandtonchurchapp/state/app_state.dart';
 import 'constants/palette.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sandtonchurchapp/models/user.dart';
+
 // import 'package:device_simulator/device_simulator.dart';
 
 void main() async {
@@ -25,8 +27,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<User>.value(value: AuthService().user),
-        StreamProvider<UserDetails>.value(value: DatabaseService().userDetails),
-        ChangeNotifierProvider(create: (context) => AppState())
+        ChangeNotifierProvider(create: (context) => AppState()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
             color: Palette.darkBlue,
           ),
         ),
-        home: HomeScreen(),
+        home: SplashScreen(),
       ),
     );
   }

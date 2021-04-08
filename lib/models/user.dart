@@ -1,4 +1,4 @@
-import 'package:sandtonchurchapp/constants/constants.dart';
+import 'package:flutter/material.dart';
 
 class User {
   final String uid;
@@ -6,7 +6,7 @@ class User {
   User({this.uid});
 }
 
-class UserDetails {
+class UserDetails with ChangeNotifier {
   final String uid;
   final String name;
   final String surname;

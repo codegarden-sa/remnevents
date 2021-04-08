@@ -65,7 +65,7 @@ dependencies:
   google_fonts:
   font_awesome_flutter:
   shared_preferences:
-  firebase_auth: ^0.16.1
+  firebase_auth: 
   firebase_core:
   google_sign_in:
   lit_firebase_auth:
@@ -75,6 +75,7 @@ dependencies:
   cloud_firestore: ^0.13.4+2
   firebase_auth_oauth_web:
   flutter_local_notifications: ^3.0.1+6
+  
 
 dev_dependencies:
   flutter_test:
