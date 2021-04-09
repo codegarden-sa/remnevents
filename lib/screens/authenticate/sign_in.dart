@@ -35,22 +35,21 @@ class _SignInState extends State<SignIn> {
     final setIsAdmin = Provider.of<AppState>(context, listen: false).setIsAdmin;
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Sign In',
-              style: TextStyle(color: AppConstants.darkblue, fontSize: 25),
-            ),
-          ],
+        iconTheme: IconThemeData(
+          color: AppConstants.darkblue, //change your color here
         ),
+        title: Text(
+          "Sign In",
+          style: TextStyle(color: AppConstants.darkblue, fontSize: 25),
+        ),
+        backgroundColor: AppConstants.lightgrey,
+        elevation: 0,
+        centerTitle: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(25.0),
           ),
         ),
-        backgroundColor: AppConstants.lightgrey,
-        elevation: 0.0,
       ),
       body: loading
           ? Loading()
@@ -58,8 +57,8 @@ class _SignInState extends State<SignIn> {
               padding: const EdgeInsets.only(top: 30),
               child: Container(
                 padding: EdgeInsets.only(left: 25, right: 15),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.75,
+                // width: MediaQuery.of(context).size.width,
+                // height: MediaQuery.of(context).size.height * 0.75,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),

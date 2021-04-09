@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:sandtonchurchapp/screens/home.dart';
 import 'package:sandtonchurchapp/constants/loading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     getValidationData().whenComplete(() async {
       Timer(Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (_) => HomeScreen(
-                )));
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
       });
     });
     super.initState();
@@ -34,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future getValidationData() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
+    final AuthService _auth = AuthService();
 
     var storedUid = sharedPreferences.getString('uid');
     if (storedUid != null) {
@@ -58,10 +59,16 @@ class _SplashScreenState extends State<SplashScreen> {
             setState(() {
               validated = true;
             });
-            print('::SPLASH:: User uid found [status] :: ' + userInfo.status + ' [name] '+ userInfo.name);
+            print('::SPLASH:: User uid found [status] :: ' +
+                userInfo.status +
+                ' [name] ' +
+                userInfo.name);
           }
         });
       }).catchError((error) => print('::SPLASH:: error refreshing status'));
+    } else {
+      dynamic anonUser = await _auth.signInAnon();
+      print(':: spash :: anonymous user uid ' + anonUser.uid);
     }
   }
 

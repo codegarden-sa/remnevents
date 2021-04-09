@@ -36,77 +36,102 @@ class _ProfileState extends State<Profile> {
     final setIsLeader =
         Provider.of<AppState>(context, listen: false).setIsLeader;
 
-    // return either the Home or Authenticate widget
-    if (user == null) {
+    if (user == null || !isLeader) {
       return Authenticate();
     } else {
-      return FutureBuilder<Map>(
-        future: _retrieveDetails(),
-        builder: (context, snapshot) {
-          final userDetails = snapshot.data;
-          if (snapshot.connectionState == ConnectionState.done && userDetails['userName'] != null ) {
-            print(userDetails);
+      return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            iconTheme: IconThemeData(
+              color: AppConstants.darkblue, //change your color here
+            ),
+            title: Text(
+              "Profile",
+              style: TextStyle(color: AppConstants.darkblue, fontSize: 25),
+            ),
+            backgroundColor: AppConstants.lightgrey,
+            elevation: 0,
+            centerTitle: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(25.0),
+              ),
+            ),
+          ),
+          body: Center(
+            child: FutureBuilder<Map>(
+              future: _retrieveDetails(),
+              builder: (context, snapshot) {
+                final userDetails = snapshot.data;
+                if (snapshot.connectionState == ConnectionState.done &&
+                    userDetails['userName'] != null) {
+                  print(userDetails);
 
-            return SingleChildScrollView(
-                child: Container(
-              child: Column(
-                children: [
-                  Text('Hi, ' +userDetails['userName'],
-                      style:
-                          TextStyle(fontSize: 40, fontWeight: FontWeight.w800)),
-                  SizedBox(height: 20.0),
-                  isAdmin || isLeader
-                      ? RaisedButton(
-                          color: AppConstants.darkblue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(4))),
-                          child: 
-                          
-                          // Text('place holder'),
-                          
-                          Text(userDetails['status']
-                                  .substring(0, 1)
-                                  .toUpperCase() +
-                              userDetails['status'].substring(1) +
-                              ' Events Panel'),
-                          textColor: Colors.white,
-                          onPressed: () {
-                            if (isAdmin)
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ListEvents(
-                                            eventListType: AppConstants.PENDING,
-                                            listTitle: 'Pending Events',
-                                          )));
+                  return SingleChildScrollView(
+                      child: Container(
+                    child: Column(
+                      children: [
+                        Text('Hi, ' + userDetails['userName'],
+                            style: TextStyle(
+                                fontSize: 40, fontWeight: FontWeight.w800)),
+                        SizedBox(height: 20.0),
+                        isAdmin || isLeader
+                            ? RaisedButton(
+                                color: AppConstants.darkblue,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4))),
+                                child:
 
-                            if (isLeader)
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ListEvents(
-                                          eventListType: AppConstants.LEADER,
-                                          uid: userDetails['uid'],
-                                          listTitle: 'My Events')));
+                                    // Text('place holder'),
+
+                                    Text(userDetails['status']
+                                            .substring(0, 1)
+                                            .toUpperCase() +
+                                        userDetails['status'].substring(1) +
+                                        ' Events Panel'),
+                                textColor: Colors.white,
+                                onPressed: () {
+                                  if (isAdmin)
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ListEvents(
+                                                  eventListType:
+                                                      AppConstants.PENDING,
+                                                  listTitle: 'Pending Events',
+                                                )));
+
+                                  if (isLeader)
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ListEvents(
+                                                eventListType:
+                                                    AppConstants.LEADER,
+                                                uid: userDetails['uid'],
+                                                listTitle: 'My Events')));
+                                },
+                              )
+                            : Text(''),
+                        SizedBox(height: 20.0),
+                        InkWell(
+                          child: Text('Logout'),
+                          onTap: () async {
+                            await _auth.signOut();
+                            // AppState.setIsLeader('viewer');
+                            setIsLeader('viewer');
                           },
                         )
-                      : Text(''),
-                  SizedBox(height: 20.0),
-                  InkWell(
-                    child: Text('Logout'),
-                    onTap: () async {
-                      await _auth.signOut();
-                      // AppState.setIsLeader('viewer');
-                      setIsLeader('viewer');
-                    },
-                  )
-                ],
-              ),
-            ));
-          } else
-            return CircularProgressIndicator();
-        },
+                      ],
+                    ),
+                  ));
+                } else
+                  return CircularProgressIndicator();
+              },
+            ),
+          ),
+        ),
       );
 
       // });

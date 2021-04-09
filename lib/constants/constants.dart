@@ -48,22 +48,25 @@ class AppConstants {
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(color: guava, width: 2.0),
     ),
-    
   );
 
-   static final shadowDecoration =  BoxDecoration(
-      boxShadow: <BoxShadow>[
-        new BoxShadow(
-          color: Colors.black.withOpacity(0.06),
-          spreadRadius: 4,
-          offset: new Offset(0.0, 0.0),
-          blurRadius: 15.0,
-        ),
-      ],
-      border: BorderDirectional(
-        bottom: BorderSide(width: 1, color: Colors.black12),
-        top: BorderSide(width: 1, color: Colors.black12),
+  static final shadowDecoration = BoxDecoration(
+    boxShadow: <BoxShadow>[
+      new BoxShadow(
+        color: Colors.black.withOpacity(0.06),
+        spreadRadius: 4,
+        offset: new Offset(0.0, 0.0),
+        blurRadius: 15.0,
       ),
-    );
-  
+    ],
+    border: BorderDirectional(
+      bottom: BorderSide(width: 1, color: Colors.black12),
+      top: BorderSide(width: 1, color: Colors.black12),
+    ),
+  );
+
+  // static final roundedContainer = BoxDecoration(
+  //   borderRadius: BorderRadius.all(Radius.circular(25.0)),
+  //   boxShadow: shadowDecoration;
+  // );
 }
