@@ -82,6 +82,8 @@ class _NotificationBarState extends State<NotificationBar> {
 
   @override
   Widget build(BuildContext context) {
+    print(':: notification bar :: incoming event ');
+    print(widget.event.notificationId);
     return Padding(
         padding: EdgeInsets.only(top: 20),
         child: Column(
@@ -108,10 +110,10 @@ class _NotificationBarState extends State<NotificationBar> {
                         widget.event.notificationId.toString());
                     if (widget.event.startDate.isAfter(DateTime.now()) &&
                         widget.event.status == AppConstants.APPROVED) {
-                      // _scheduledDateTime =
-                      //     widget.event.startDate.subtract(Duration(hours: 1));
                       _scheduledDateTime =
-                          DateTime.now().add(Duration(seconds: 5));
+                          widget.event.startDate.subtract(Duration(hours: 1));
+                      // _scheduledDateTime =
+                      //     DateTime.now().add(Duration(seconds: 5));
                       _scheduleNotification();
                       print('time for event => ' +
                           widget.event.startDate.toString());

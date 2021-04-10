@@ -45,7 +45,7 @@ class _EventListState extends State<EventList> {
                       shrinkWrap: true,
                       itemCount: events.length,
                       itemBuilder: (context, index) {
-                        return EventTile(event: events[index]);
+                        return EventTile(event: events[index], showNotification: false,);
 
                         // );
                       },

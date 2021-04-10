@@ -183,7 +183,7 @@ class _CalendarEventsState extends State<CalendarEvents> {
                           ),
                           // ),
                           ..._selectedEvents
-                              .map((event) => EventTile(event: event)),
+                              .map((event) => EventTile(event: event, showNotification: true,)),
                           _isDayEventsEmpty == false
                               ? SizedBox(width: 0, height: 0)
                               :

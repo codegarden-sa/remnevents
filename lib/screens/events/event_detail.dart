@@ -9,7 +9,9 @@ import 'package:sandtonchurchapp/state/app_state.dart';
 
 class EventDetail extends StatefulWidget {
   final EventModel event;
-  const EventDetail({Key key, this.event}) : super(key: key);
+  final showNotification;
+  const EventDetail({Key key, this.event, this.showNotification})
+      : super(key: key);
 
   @override
   _EventDetailState createState() => _EventDetailState();
@@ -32,16 +34,6 @@ class _EventDetailState extends State<EventDetail> {
     final isAdmin = Provider.of<AppState>(context, listen: false).isAdmin;
     final isLeader = Provider.of<AppState>(context, listen: false).isLeader;
     _decoratedStatus = widget.event.status;
-    final coursePrice = Container(
-      padding: const EdgeInsets.all(7.0),
-      decoration: new BoxDecoration(
-          border: new Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(5.0)),
-      child: new Text(
-        "\$" + '22',
-        style: TextStyle(color: Colors.white),
-      ),
-    );
 
     final bottomContentText = Text(
       widget.event.description,
@@ -60,15 +52,21 @@ class _EventDetailState extends State<EventDetail> {
             SizedBox(
               height: 15,
             ),
-            NotificationBar(
-                event: widget.event, updateSnackBar: updateSnackBar),
+            //notification bar is only visible when chosen from the calender events
+            //because only they have notification id
+            widget.showNotification == true
+                ? NotificationBar(
+                    event: widget.event, updateSnackBar: updateSnackBar)
+                : SizedBox(
+                    height: 0.0,
+                  ),
             isAdmin == true
                 ? AdminBar(
                     event: widget.event,
                     updateSnackBar: updateSnackBar,
                     decorateStatus: decorateStatus)
                 : SizedBox(
-                    height: 0.1,
+                    height: 0.0,
                   ),
           ],
         ),
@@ -81,7 +79,11 @@ class _EventDetailState extends State<EventDetail> {
       children: <Widget>[
         Text(
           widget.event.title,
-          style: TextStyle(color: AppConstants.guava, fontSize: 25.0, fontWeight: FontWeight.w900,),
+          style: TextStyle(
+            color: AppConstants.guava,
+            fontSize: 25.0,
+            fontWeight: FontWeight.w900,
+          ),
         ),
         // SizedBox(height: 30.0),
 
@@ -121,21 +123,25 @@ class _EventDetailState extends State<EventDetail> {
                 fit: BoxFit.cover,
               ),
             )),
-        Container(
-          height: MediaQuery.of(context).size.height * 0.5,
-          padding: EdgeInsets.fromLTRB(20, 120, 20, 20),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(58, 66, 86, .97),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15),
-              bottomRight: Radius.circular(15),
+        InkWell(
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              padding: EdgeInsets.fromLTRB(20, 120, 20, 20),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(58, 66, 86, .97),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15),
+                ),
+              ),
+              child: Center(
+                child: topContentText,
+              ),
             ),
-          ),
-          child: Center(
-            child: topContentText,
-          ),
-        ),
+            onTap: () {
+              Navigator.pop(context);
+            }),
         Positioned(
           left: 8.0,
           top: 40.0,
@@ -149,10 +155,8 @@ class _EventDetailState extends State<EventDetail> {
       ],
     );
 
-    return 
-    SafeArea(
-      child: 
-      Scaffold(
+    return SafeArea(
+      child: Scaffold(
         key: _scaffoldKey,
         body: SingleChildScrollView(
           child: Column(

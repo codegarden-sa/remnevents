@@ -61,6 +61,8 @@ class DatabaseService {
     try {
       return eventCollection
           .where('status', isEqualTo: AppConstants.APPROVED)
+          .where('startDate', isGreaterThanOrEqualTo: DateTime.now())
+          .orderBy('startDate', descending: true)
           .snapshots()
           .map(_eventListFromSnapshot);
     } on Exception catch (e) {
@@ -164,7 +166,7 @@ class DatabaseService {
           sharedPreferences.setString('status', userData.status);
           print(
               'Inserting/Refreshing user status [status]:: ' + userData.status);
-              
+
           return userData.status;
         },
         onError: (error) {

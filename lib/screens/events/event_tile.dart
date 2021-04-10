@@ -7,7 +7,8 @@ import 'event_detail.dart';
 
 class EventTile extends StatelessWidget {
   final EventModel event;
-  EventTile({this.event});
+  final showNotification;
+  EventTile({this.event, this.showNotification});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +70,7 @@ class EventTile extends StatelessWidget {
       ),
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EventDetail(event: event)));
+            MaterialPageRoute(builder: (context) => EventDetail(event: event, showNotification: showNotification,)));
       },
     );
   }
