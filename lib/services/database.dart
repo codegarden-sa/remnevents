@@ -110,6 +110,7 @@ class DatabaseService {
   }
 
   Future updateEvent(String id, String status) async {
+    //update UI after status update.
     return await eventCollection
         .document(id)
         .updateData({'status': status})

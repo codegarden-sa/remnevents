@@ -81,13 +81,13 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // logo here
-            Image.asset(
-              'assets/images/logo.png',
-              height: 120,
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            // Image.asset(
+            //   'assets/images/logo.png',
+            //   height: 120,
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
             SpinKitThreeBounce(
               color: AppConstants.guava,
               size: 20.0,
