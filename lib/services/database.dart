@@ -61,7 +61,7 @@ class DatabaseService {
     try {
       return eventCollection
           .where('status', isEqualTo: AppConstants.APPROVED)
-          .where('startDate', isGreaterThanOrEqualTo: DateTime.now())
+          // .where('startDate', isGreaterThanOrEqualTo: DateTime.now())
           .orderBy('startDate', descending: true)
           .snapshots()
           .map(_eventListFromSnapshot);
