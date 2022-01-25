@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:993988526758:android:d5298699870d4df8c3aa67",
         "android_client_info": {
-          "package_name": "com.example.sandtonchurchapp"
+          "package_name": "com.ncube.sandtonchurchapp"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "993988526758-n2f30i9b4kjjm8degft06j0hek2ae34i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.sandtonchurchapp",
+            "package_name": "com.ncube.sandtonchurchapp",
             "certificate_hash": "cbf3728fa4814d14d5849336fa6f426da4ae6b62"
           }
         },

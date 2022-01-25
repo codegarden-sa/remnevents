@@ -40,7 +40,7 @@ class _NavigationState extends State<Navigation> {
       eventListType: AppConstants.APPROVED,
       listTitle: 'All Events',
     ),
-   Settings(),
+    Settings(),
   ];
 
   void _onItemTap(int index) {
@@ -55,8 +55,12 @@ class _NavigationState extends State<Navigation> {
       print('::HOME:: this user is a leader ::');
     else
       print('::HOME:: not a leader at all hey');
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      //cond resizeToAvoidBottomPadding: false,
       body: IndexedStack(
+        // sizing: StackFit.passthrough,
         children: [
           Center(
             child: _widgetOptions.elementAt(_selectedIndex),

@@ -41,6 +41,7 @@ class _CalendarEventsState extends State<CalendarEvents> {
   Widget build(BuildContext context) {
     return SafeArea(
       // child: Center(
+
       child: Scaffold(
         body: StreamBuilder<List<EventModel>>(
             stream: DatabaseService().approvedEvents,
@@ -53,15 +54,17 @@ class _CalendarEventsState extends State<CalendarEvents> {
                   _events = {};
                   _selectedEvents = [];
                 }
-              } 
-              
+              }
+
               // else {
               //   print('no data in snapshot');
               // }
               return ListView(
                 children: <Widget>[
                   Container(
-                    height: MediaQuery.of(context).size.height * .69 - kBottomNavigationBarHeight - kToolbarHeight,
+                    height: MediaQuery.of(context).size.height * .69 -
+                        kBottomNavigationBarHeight -
+                        kToolbarHeight,
                     decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(10.0)),
@@ -156,7 +159,9 @@ class _CalendarEventsState extends State<CalendarEvents> {
                     // ),
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * .52 - kBottomNavigationBarHeight - kToolbarHeight,
+                    height: MediaQuery.of(context).size.height * .52 -
+                        kBottomNavigationBarHeight -
+                        kToolbarHeight,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(25),
@@ -182,12 +187,13 @@ class _CalendarEventsState extends State<CalendarEvents> {
                             ],
                           ),
                           // ),
-                          ..._selectedEvents
-                              .map((event) => EventTile(event: event, showNotification: true,)),
+                          ..._selectedEvents.map((event) => EventTile(
+                                event: event,
+                                showNotification: true,
+                              )),
                           _isDayEventsEmpty == false
                               ? SizedBox(width: 0, height: 0)
-                              :
-                              Row(
+                              : Row(
                                   mainAxisAlignment: MainAxisAlignment
                                       .center, //Center Row contents horizontally,
                                   crossAxisAlignment: CrossAxisAlignment.center,

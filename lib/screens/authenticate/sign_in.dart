@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:sandtonchurchapp/models/user.dart';
+import 'package:sandtonchurchapp/screens/home.dart';
 import 'package:sandtonchurchapp/services/auth.dart';
 import 'package:sandtonchurchapp/constants/loading.dart';
 import 'package:sandtonchurchapp/constants/constants.dart';
@@ -33,6 +33,8 @@ class _SignInState extends State<SignIn> {
     final setIsLeader =
         Provider.of<AppState>(context, listen: false).setIsLeader;
     final setIsAdmin = Provider.of<AppState>(context, listen: false).setIsAdmin;
+    final setIsViewer =
+        Provider.of<AppState>(context, listen: false).setIsViewer;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -128,6 +130,7 @@ class _SignInState extends State<SignIn> {
                                     print(
                                         'Inserting/Refreshing user status [status]:: ' +
                                             userInfo.status);
+                                    loading = false;
 
                                     if (userInfo.status != null) if (userInfo
                                                 .status ==
@@ -136,6 +139,13 @@ class _SignInState extends State<SignIn> {
                                             AppConstants.ADMINISTRATOR) {
                                       setIsAdmin(userInfo.status);
                                       setIsLeader(userInfo.status);
+                                      // setIsViewer(userInfo.status);
+                                    } else {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen()));
                                     }
                                   });
                                 }).catchError((error) => print(
