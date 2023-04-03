@@ -1,11 +1,11 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sandtonchurchapp/components/notification_bar.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/models/event.dart';
+import 'package:remnevents/components/notification_bar.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/models/event.dart';
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/components/admin_bar.dart';
+import 'package:remnevents/components/admin_bar.dart';
 import 'package:provider/provider.dart';
-import 'package:sandtonchurchapp/state/app_state.dart';
+import 'package:remnevents/state/app_state.dart';
 
 class EventDetail extends StatefulWidget {
   final EventModel event;

@@ -1,4 +1,4 @@
-name: sandtonchurchapp
+name: remnevents
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -18,12 +18,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 4.0.0+4
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: '>=2.2.2 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -32,19 +31,19 @@ dependencies:
   # flutter_spinkit: ^4.1.2
   # flutter_neumorphic: ^3.0.3
   # http: ^0.12.2
-  # provider: 
+  # provider:
   # date_field: ^1.0.4
   # intl: ^0.17.0
   # toggle_switch: ^0.1.8
   # direct_select_flutter: ^1.0.7
   # # dropdown_formfield: ^0.1.3
-  # table_calendar:    
+  # table_calendar:
   # google_fonts:
   # font_awesome_flutter:
   # shared_preferences:
   # firebase_auth:
   # firebase_core:
-  # cloud_firestore: 
+  # cloud_firestore:
   # google_sign_in:
   # animations:
   # firebase_helpers:
@@ -61,11 +60,11 @@ dependencies:
   direct_select_flutter: ^1.0.7
   path_provider: ^1.6.7
   # dropdown_formfield: ^0.1.3
-  table_calendar:    
+  table_calendar:
   google_fonts:
   font_awesome_flutter:
   shared_preferences:
-  firebase_auth: 
+  firebase_auth:
   firebase_core:
   google_sign_in:
   lit_firebase_auth:
@@ -75,7 +74,6 @@ dependencies:
   cloud_firestore: ^0.13.4+2
   firebase_auth_oauth_web:
   flutter_local_notifications: ^3.0.1+6
-  
 
 dev_dependencies:
   flutter_test:
@@ -87,16 +85,15 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   assets:
-     - assets/icons/
-     - assets/images/
-     - assets/svg/
+    - assets/icons/
+    - assets/images/
+    - assets/svg/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -115,12 +112,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Montserrat
-       fonts:
-         - asset: fonts/Montserrat-Regular.ttf
-         - asset: fonts/Montserrat-Thin.ttf
-         - asset: fonts/Montserrat-Bold.ttf
-           weight: 700
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat-Thin.ttf
+        - asset: fonts/Montserrat-Bold.ttf
+          weight: 700
     #  - family: Trajan Pro
     #    fonts:
     #      - asset: fonts/TrajanPro.ttf

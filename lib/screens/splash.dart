@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/models/user.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/models/user.dart';
 import 'dart:async';
-import 'package:sandtonchurchapp/screens/home.dart';
-import 'package:sandtonchurchapp/constants/loading.dart';
+import 'package:remnevents/screens/home.dart';
+import 'package:remnevents/constants/loading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:sandtonchurchapp/services/auth.dart';
-import 'package:sandtonchurchapp/services/database.dart';
+import 'package:remnevents/services/auth.dart';
+import 'package:remnevents/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-import 'package:sandtonchurchapp/state/app_state.dart';
+import 'package:remnevents/state/app_state.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

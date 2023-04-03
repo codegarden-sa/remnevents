@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/models/user.dart';
-import 'package:sandtonchurchapp/services/database.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/models/user.dart';
+import 'package:remnevents/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {

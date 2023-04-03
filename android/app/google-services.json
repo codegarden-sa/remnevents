@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:993988526758:android:d5298699870d4df8c3aa67",
+        "mobilesdk_app_id": "1:993988526758:android:f448287ef0660841c3aa67",
         "android_client_info": {
-          "package_name": "com.ncube.sandtonchurchapp"
+          "package_name": "co.za.codegarden.remnevents"
         }
       },
       "oauth_client": [
         {
-          "client_id": "993988526758-n2f30i9b4kjjm8degft06j0hek2ae34i.apps.googleusercontent.com",
+          "client_id": "993988526758-gt6o3p6j0vkdaus9o12q41cfh2tvdms6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.ncube.sandtonchurchapp",
-            "certificate_hash": "cbf3728fa4814d14d5849336fa6f426da4ae6b62"
+            "package_name": "co.za.codegarden.remnevents",
+            "certificate_hash": "e596f37431095d33c2c3cdf5c8eaa10a6c8c8e47"
           }
         },
         {
@@ -37,6 +37,13 @@
             {
               "client_id": "993988526758-2iqp10dpl1dp7kiig5n5pqun1ool6u94.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "993988526758-9mkrulfqt0v3cf6f6mg5joahj02he751.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.remnevents"
+              }
             }
           ]
         }

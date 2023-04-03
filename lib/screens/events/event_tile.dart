@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/models/event.dart';
-import 'package:sandtonchurchapp/models/event.dart';
+import 'package:remnevents/models/event.dart';
+import 'package:remnevents/models/event.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../constants/constants.dart';
 import 'event_detail.dart';
@@ -69,8 +69,13 @@ class EventTile extends StatelessWidget {
         child: makeCard,
       ),
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EventDetail(event: event, showNotification: showNotification,)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EventDetail(
+                      event: event,
+                      showNotification: showNotification,
+                    )));
       },
     );
   }

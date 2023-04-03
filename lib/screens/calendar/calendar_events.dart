@@ -1,14 +1,14 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/screens/events/event_tile.dart';
-import 'package:sandtonchurchapp/services/database.dart';
-import 'package:sandtonchurchapp/utils/group_events.dart';
+import 'package:remnevents/screens/events/event_tile.dart';
+import 'package:remnevents/services/database.dart';
+import 'package:remnevents/utils/group_events.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants/constants.dart';
-import 'package:sandtonchurchapp/models/event.dart';
+import 'package:remnevents/models/event.dart';
 
 class CalendarEvents extends StatefulWidget {
   @override

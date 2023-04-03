@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.sandtonchurchapp</string>
+	<string>com.example.remnevents</string>
 	<key>PROJECT_ID</key>
 	<string>sandtonchurch-c4a57</string>
 	<key>STORAGE_BUCKET</key>

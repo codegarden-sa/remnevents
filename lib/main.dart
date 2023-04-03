@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sandtonchurchapp/screens/splash.dart';
-import 'package:sandtonchurchapp/services/auth.dart';
-import 'package:sandtonchurchapp/state/app_state.dart';
+import 'package:remnevents/screens/splash.dart';
+import 'package:remnevents/services/auth.dart';
+import 'package:remnevents/state/app_state.dart';
 import 'constants/palette.dart';
-import 'package:sandtonchurchapp/models/user.dart';
+import 'package:remnevents/models/user.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   final bool debugEnableDeviceSimulator = true;
 

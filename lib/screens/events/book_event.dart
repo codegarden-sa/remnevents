@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/screens/events/event_tile.dart';
-import 'package:sandtonchurchapp/screens/home.dart';
-import 'package:sandtonchurchapp/services/auth.dart';
-import 'package:sandtonchurchapp/constants/loading.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/services/database.dart';
+import 'package:remnevents/screens/events/event_tile.dart';
+import 'package:remnevents/screens/home.dart';
+import 'package:remnevents/services/auth.dart';
+import 'package:remnevents/constants/loading.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:sandtonchurchapp/models/user.dart';
+import 'package:remnevents/models/user.dart';
 import 'package:date_field/date_field.dart';
-import 'package:sandtonchurchapp/components/date_time_picker.dart';
+import 'package:remnevents/components/date_time_picker.dart';
 // import 'package:dropdown_formfield/dropdown_formfield.dart';
-import 'package:sandtonchurchapp/components/libraries/dropdown_formfield.dart';
+import 'package:remnevents/components/libraries/dropdown_formfield.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
-import 'package:sandtonchurchapp/components/date_selector.dart';
+import 'package:remnevents/components/date_selector.dart';
 import 'package:direct_select_flutter/direct_select_container.dart';
 
 class BookEvent extends StatefulWidget {

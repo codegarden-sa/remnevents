@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/models/event.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/models/event.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationBar extends StatefulWidget {

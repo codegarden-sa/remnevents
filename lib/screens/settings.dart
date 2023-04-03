@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/screens/authenticate/profile.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/screens/authenticate/profile.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key key}) : super(key: key);
@@ -18,7 +18,6 @@ class Settings extends StatelessWidget {
                   child: Container(
                     color: AppConstants.lightgrey,
                     padding: EdgeInsets.all(12.0),
-                    
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

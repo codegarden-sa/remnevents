@@ -1,4 +1,4 @@
-import 'package:sandtonchurchapp/models/event.dart';
+import 'package:remnevents/models/event.dart';
 
 Map<DateTime, List<dynamic>> groupEvents(List<EventModel> allEvents) {
   Map<DateTime, List<dynamic>> data = {};

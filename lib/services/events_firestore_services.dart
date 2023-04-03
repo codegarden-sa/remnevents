@@ -1,5 +1,5 @@
 // import 'package:firebase_helpers/firebase_helpers.dart';
-// import 'package:sandtonchurchapp/models/event.dart';
+// import 'package:remnevents/models/event.dart';
 
 // DatabaseService<EventModel> eventDBS = DatabaseService<EventModel>("bookings",
 //     fromDS: (id, data) => EventModel.fromDS(id, data),

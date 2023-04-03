@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
-import 'package:sandtonchurchapp/services/database.dart';
-import 'package:sandtonchurchapp/models/event.dart';
+import 'package:remnevents/constants/constants.dart';
+import 'package:remnevents/services/database.dart';
+import 'package:remnevents/models/event.dart';
 
 class AdminBar extends StatelessWidget {
   final EventModel event;

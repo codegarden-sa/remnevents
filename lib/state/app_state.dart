@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
+import 'package:remnevents/constants/constants.dart';
 
 class AppState with ChangeNotifier {
   bool _isLeader = false;

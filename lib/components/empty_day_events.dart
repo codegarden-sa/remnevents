@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sandtonchurchapp/state/app_state.dart';
+import 'package:remnevents/state/app_state.dart';
 
 class EmptyDayEvents extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class EmptyDayEvents extends StatelessWidget {
         child: Text('Nothing For Today'),
       );
     } else {
-      return Container(color: Colors.white , child: Text('EMPTY'));
+      return Container(color: Colors.white, child: Text('EMPTY'));
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
+import 'package:remnevents/constants/constants.dart';
 
 class DateTimeFld extends StatefulWidget {
   // DateTimeFld({Key key}) : super(key: key);/
@@ -22,7 +22,6 @@ class _DateTimeFldState extends State<DateTimeFld> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      
       children: [
         Form(
           child: Column(

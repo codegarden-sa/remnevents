@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:direct_select_flutter/direct_select_list.dart';
-import 'package:sandtonchurchapp/constants/constants.dart';
+import 'package:remnevents/constants/constants.dart';
 import 'package:direct_select_flutter/direct_select_item.dart';
 
 class DepartmentSelector extends StatelessWidget {

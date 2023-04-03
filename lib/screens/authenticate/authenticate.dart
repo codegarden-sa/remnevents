@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sandtonchurchapp/screens/authenticate/sign_in.dart';
-import 'package:sandtonchurchapp/screens/authenticate/register.dart';
+import 'package:remnevents/screens/authenticate/sign_in.dart';
+import 'package:remnevents/screens/authenticate/register.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -8,18 +8,17 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-
-   bool showSignIn = true;
-  void toggleView(){
+  bool showSignIn = true;
+  void toggleView() {
     setState(() => showSignIn = !showSignIn);
   }
 
   @override
   Widget build(BuildContext context) {
     if (showSignIn) {
-      return SignIn(toggleView:  toggleView);
+      return SignIn(toggleView: toggleView);
     } else {
-      return Register(toggleView:  toggleView);
+      return Register(toggleView: toggleView);
     }
   }
 }
