@@ -14,7 +14,7 @@ class EventList extends StatefulWidget {
 class _EventListState extends State<EventList> {
   @override
   Widget build(BuildContext context) {
-    final events = Provider.of<List<EventModel>>(context) ?? [];
+    final events = Provider.of<List<EventModel>>(context);
     return SingleChildScrollView(
       child: Column(
         children: [

@@ -8,9 +8,13 @@ import 'package:remnevents/models/event.dart';
 class AdminBar extends StatelessWidget {
   final EventModel event;
   final Function updateSnackBar;
-  final Function decorateStatus;
-  AdminBar({Key key, this.event, this.updateSnackBar, this.decorateStatus})
-      : super(key: key);
+    final Function decorateStatus;
+    AdminBar({
+      Key? key,
+      required this.event,
+      required this.updateSnackBar,
+      required this.decorateStatus
+    }) : super(key: key);
 
   int getState(String eventStatus) {
     int _idx = 0;
@@ -43,7 +47,7 @@ class AdminBar extends StatelessWidget {
             ToggleSwitch(
               minWidth: 60.0,
               initialLabelIndex: getState(event.status),
-              activeBgColor: AppConstants.darkblue,
+              activeBgColors: [AppConstants.darkblue, AppConstants.darkblue, AppConstants.darkblue, AppConstants.darkblue],
               activeFgColor: AppConstants.guava,
               inactiveBgColor: Colors.grey.withOpacity(0.7),
               inactiveFgColor: Colors.white54,
@@ -59,8 +63,7 @@ class AdminBar extends StatelessWidget {
                 switch (index) {
                   case 0:
                     if (event.status != AppConstants.APPROVED) {
-                      dynamic result = await DatabaseService()
-                          .updateEvent(event.id, AppConstants.APPROVED);
+                      dynamic result = await DatabaseService(uid: '').updateEvent(event.id, AppConstants.APPROVED);
                       print(result);
                       if (result == 'updated') {
                         decorateStatus('approved');
@@ -70,8 +73,7 @@ class AdminBar extends StatelessWidget {
                     break;
                   case 1:
                     if (event.status != AppConstants.PENDING) {
-                      dynamic result = await DatabaseService()
-                          .updateEvent(event.id, AppConstants.PENDING);
+                      dynamic result = await DatabaseService(uid: '').updateEvent(event.id, AppConstants.PENDING);
                       print(result);
                       if (result == 'updated') {
                         decorateStatus('pending');

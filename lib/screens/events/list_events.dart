@@ -1,28 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:remnevents/constants/constants.dart';
 import 'package:remnevents/screens/events/event_list.dart';
-import 'package:remnevents/services/events_firestore_services.dart';
-// import '../models/event.dart';÷
 import 'package:remnevents/models/event.dart';
 import 'package:remnevents/services/database.dart';
 import 'package:provider/provider.dart';
 
 class ListEvents extends StatelessWidget {
-  final String eventListType;
-  final String uid;
+  final String? eventListType;
+  final String? uid;
   final String listTitle;
-  ListEvents({this.eventListType, this.uid, this.listTitle});
+  ListEvents({this.eventListType, this.uid, required this.listTitle});
 
   @override
   Widget build(BuildContext context) {
     return Container(
         child: StreamProvider<List<EventModel>>.value(
+            initialData: [], // Add this line
             value: eventListType == AppConstants.APPROVED
-                ? DatabaseService().approvedEvents
-                : eventListType == AppConstants.LEADER
+                ? DatabaseService(uid: uid).approvedEvents
+                : eventListType == AppConstants.LEADER && uid != null
                     ? DatabaseService(uid: uid).leaderEvents
-                    : DatabaseService().pendingEvents,
+                    : DatabaseService(uid: uid).pendingEvents,
             child: SafeArea(
               child: Scaffold(
                 appBar: AppBar(

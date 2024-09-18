@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:remnevents/models/event.dart';
-import 'package:remnevents/models/event.dart';
 // import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../constants/constants.dart';
 import 'event_detail.dart';
@@ -8,7 +7,7 @@ import 'event_detail.dart';
 class EventTile extends StatelessWidget {
   final EventModel event;
   final showNotification;
-  EventTile({this.event, this.showNotification});
+  EventTile({required this.event, this.showNotification});
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Register extends StatefulWidget {
   final Function toggleView;
-  Register({this.toggleView});
+  Register({required this.toggleView});
 
   @override
   _RegisterState createState() => _RegisterState();
@@ -71,7 +71,7 @@ class _RegisterState extends State<Register> {
                             decoration: AppConstants.textInputDecoration
                                 .copyWith(hintText: 'name'),
                             validator: (val) =>
-                                val.isEmpty ? 'Enter your name' : null,
+                                val?.isEmpty == true ? 'Enter your name' : null,
                             onChanged: (val) {
                               setState(() => name = val);
                             },
@@ -81,7 +81,7 @@ class _RegisterState extends State<Register> {
                             decoration: AppConstants.textInputDecoration
                                 .copyWith(hintText: 'surname'),
                             validator: (val) =>
-                                val.isEmpty ? 'Enter your surname' : null,
+                                val?.isEmpty == true ? 'Enter your surname' : null,
                             onChanged: (val) {
                               setState(() => surname = val);
                             },
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
                             decoration: AppConstants.textInputDecoration
                                 .copyWith(hintText: 'email'),
                             validator: (val) =>
-                                val.isEmpty ? 'Enter an email' : null,
+                                val?.isEmpty == true ? 'Enter an email' : null,
                             onChanged: (val) {
                               setState(() => email = val);
                             },
@@ -110,7 +110,7 @@ class _RegisterState extends State<Register> {
                             decoration: AppConstants.textInputDecoration
                                 .copyWith(hintText: 'password'),
                             obscureText: true,
-                            validator: (val) => val.length < 6
+                            validator: (val) => val?.length != null && val!.length < 6
                                 ? 'Enter a password 6+ chars long'
                                 : null,
                             onChanged: (val) {
@@ -118,14 +118,16 @@ class _RegisterState extends State<Register> {
                             },
                           ),
                           SizedBox(height: 20.0),
-                          RaisedButton(
-                              color: AppConstants.grey,
+                          ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppConstants.grey,
+                              ),
                               child: Text(
                                 'Register',
                                 style: TextStyle(color: Colors.white),
                               ),
                               onPressed: () async {
-                                if (_formKey.currentState.validate()) {
+                                if (_formKey.currentState?.validate() ?? false) {
                                   setState(() => loading = true);
                                   dynamic result =
                                       await _auth.registerWithEmailAndPassword(

@@ -1,4 +1,3 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:remnevents/components/notification_bar.dart';
 import 'package:remnevents/constants/constants.dart';
 import 'package:remnevents/models/event.dart';
@@ -9,8 +8,8 @@ import 'package:remnevents/state/app_state.dart';
 
 class EventDetail extends StatefulWidget {
   final EventModel event;
-  final showNotification;
-  const EventDetail({Key key, this.event, this.showNotification})
+  final bool showNotification;
+  const EventDetail({Key? key, required this.event, this.showNotification = false})
       : super(key: key);
 
   @override
@@ -18,11 +17,11 @@ class EventDetail extends StatefulWidget {
 }
 
 class _EventDetailState extends State<EventDetail> {
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String _decoratedStatus;
+  final _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+  late String _decoratedStatus;
 
   void updateSnackBar(String txt) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(txt)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(txt)));
   }
 
   void decorateStatus(String st) {
@@ -156,12 +155,14 @@ class _EventDetailState extends State<EventDetail> {
     );
 
     return SafeArea(
-      child: Scaffold(
+      child: ScaffoldMessenger(
         key: _scaffoldKey,
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[topContent, bottomContent],
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[topContent, bottomContent],
+            ),
           ),
         ),
       ),

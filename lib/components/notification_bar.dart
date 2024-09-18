@@ -1,39 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// Remove unused import
 import 'package:remnevents/constants/constants.dart';
 import 'package:remnevents/models/event.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+// Add this import
 class NotificationBar extends StatefulWidget {
-  NotificationBar({Key key, this.event, this.updateSnackBar}) : super(key: key);
+  const NotificationBar({
+    Key? key,
+    required this.event,
+    required this.updateSnackBar,
+  }) : super(key: key);
+
   final EventModel event;
   final Function updateSnackBar;
 
   @override
   _NotificationBarState createState() => _NotificationBarState();
 }
-
 class _NotificationBarState extends State<NotificationBar> {
   final FlutterLocalNotificationsPlugin localNotification =
       FlutterLocalNotificationsPlugin();
-  DateTime _scheduledDateTime;
+  late DateTime _scheduledDateTime;
 
   @override
   void initState() {
     super.initState();
-
+    tz.initializeTimeZones();
     var initializationSettingsAndroid =
         AndroidInitializationSettings('sda_sandton');
-    var initializationSettingsIOS = IOSInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification:
-            (int id, String title, String body, String payload) async {});
+    var initializationSettingsIOS = DarwinInitializationSettings(
+        // ... iOS settings
+    );
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    localNotification.initialize(initializationSettings);
+    _initializeNotifications(initializationSettings);
+  }
+
+  Future<void> _initializeNotifications(InitializationSettings initializationSettings) async {
+    await localNotification.initialize(initializationSettings);
   }
 
   Future notificationSelected(String payload) async {
@@ -46,19 +53,24 @@ class _NotificationBarState extends State<NotificationBar> {
   }
 
   Future _scheduleNotification() async {
-    var androidDetails = new AndroidNotificationDetails(
-        'channelId', 'Local Notification', 'Local Channel',
+    var androidDetails = AndroidNotificationDetails(
+        'channel_id',
+        'channel_name',
+        'channel_description',
         importance: Importance.high);
-    var iosDetails = new IOSNotificationDetails();
+    var iosDetails = const DarwinNotificationDetails();
     var generalNotificationDetails =
-        new NotificationDetails(android: androidDetails, iOS: iosDetails);
+        NotificationDetails(android: androidDetails, iOS: iosDetails);
 
-    await localNotification.schedule(
+    await localNotification.zonedSchedule(
         widget.event.notificationId,
         widget.event.title,
         widget.event.description,
-        _scheduledDateTime,
-        generalNotificationDetails);
+        tz.TZDateTime.from(_scheduledDateTime, tz.local),
+        generalNotificationDetails,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 
   int getState(int nTime) {
@@ -92,7 +104,7 @@ class _NotificationBarState extends State<NotificationBar> {
             ToggleSwitch(
               minWidth: 60.0,
               initialLabelIndex: getState(widget.event.notificationTime),
-              activeBgColor: AppConstants.darkblue,
+              activeBgColors: [[AppConstants.darkblue]],
               activeFgColor: AppConstants.guava,
               inactiveBgColor: Colors.grey.withOpacity(0.7),
               inactiveFgColor: Colors.white,

@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:remnevents/screens/authenticate/profile.dart';
 import 'package:remnevents/screens/events/list_events.dart';
 import 'package:remnevents/screens/settings.dart';
 import 'package:remnevents/state/app_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'calendar/calendar_events.dart';
 import '../constants/constants.dart';
 import 'package:provider/provider.dart';
-import 'events/book_event.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
-
-  // static MaterialPageRoute get route => MaterialPageRoute(
-  //       builder: (context) => const HomeScreen(),
-  //     );
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +17,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class Navigation extends StatefulWidget {
-  Navigation({
-    Key key,
+  const Navigation({
+    super.key,
   });
   @override
   _NavigationState createState() => _NavigationState();
@@ -78,7 +71,7 @@ class _NavigationState extends State<Navigation> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.solidListAlt,
+              FontAwesomeIcons.solidRectangleList,
               size: 20,
             ),
             label: '____',
@@ -104,8 +97,10 @@ class _NavigationState extends State<Navigation> {
                 color: Colors.white,
               ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BookEvent()));
+                Navigator.pushNamed(
+                  context,
+                  '/book-event',
+                );
               }),
         );
       }),

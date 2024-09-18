@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:remnevents/screens/events/event_tile.dart';
-import 'package:remnevents/screens/home.dart';
-import 'package:remnevents/services/auth.dart';
 import 'package:remnevents/constants/loading.dart';
 import 'package:remnevents/constants/constants.dart';
 import 'package:remnevents/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:remnevents/models/user.dart';
-import 'package:date_field/date_field.dart';
 import 'package:remnevents/components/date_time_picker.dart';
-// import 'package:dropdown_formfield/dropdown_formfield.dart';
-import 'package:remnevents/components/libraries/dropdown_formfield.dart';
-import 'package:direct_select_flutter/direct_select_item.dart';
-import 'package:direct_select_flutter/direct_select_item.dart';
 import 'package:remnevents/components/date_selector.dart';
 import 'package:direct_select_flutter/direct_select_container.dart';
 
@@ -20,7 +12,11 @@ class BookEvent extends StatefulWidget {
   final Function toggleView;
   final Function home;
 
-  BookEvent({this.toggleView, this.home});
+  const BookEvent({
+    Key? key, 
+    required this.toggleView, 
+    required this.home
+  }) : super(key: key);
 
   @override
   _BookEventState createState() => _BookEventState();
@@ -29,18 +25,17 @@ class BookEvent extends StatefulWidget {
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
 class _BookEventState extends State<BookEvent> {
-  final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
   String error = '';
   bool loading = false;
 
-  String title;
-  String description;
-  String department;
-  DateTime startDate;
-  DateTime endDate;
-  String _dept;
+  late String title;
+  late String description;
+  late String department;
+  late DateTime startDate;
+  late DateTime endDate;
+  late String _dept;
   int departmentIndex = 0;
 
   List<String> _departments = [
@@ -141,21 +136,20 @@ class _BookEventState extends State<BookEvent> {
                             getDepartmentValue: getDepartmentValue,
                             departmentIndex: departmentIndex,
                           ),
-                          // _dept == 'Department' ? Text('please choose department') : SizedBox(height: 0.1,),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
                           Container(
                             decoration: AppConstants.shadowDecoration,
                             child: TextFormField(
                               decoration: AppConstants.textInputDecoration
                                   .copyWith(hintText: 'Event Title'),
                               validator: (val) =>
-                                  val.isEmpty ? 'Enter event title' : null,
+                                  val?.isEmpty == true ? 'Enter event title' : null,
                               onChanged: (val) {
                                 setState(() => title = val);
                               },
                             ),
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
                           Container(
                             decoration: AppConstants.shadowDecoration,
                             child: TextFormField(
@@ -164,7 +158,7 @@ class _BookEventState extends State<BookEvent> {
                                       hintText: 'Event Description',
                                       contentPadding: new EdgeInsets.symmetric(
                                           vertical: 25.0, horizontal: 10.0)),
-                              validator: (val) => val.isEmpty
+                              validator: (val) => val?.isEmpty == true
                                   ? 'Enter event description'
                                   : null,
                               onChanged: (val) {
@@ -172,43 +166,41 @@ class _BookEventState extends State<BookEvent> {
                               },
                             ),
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
                           DateTimeFld(setDateTime: setDateTime),
-                          SizedBox(height: 20.0),
-                          RaisedButton(
-                              color: AppConstants.grey,
-                              child: Text(
-                                'Submit',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate() &&
-                                    _dept != '') {
-                                  setState(() {
-                                    department = _dept;
-                                  });
-                                  setState(() => loading = true);
-                                  dynamic eventBooked =
-                                      await DatabaseService(uid: user.uid)
-                                          .bookEvent(title, description,
-                                              department, startDate, endDate);
+                          const SizedBox(height: 20.0),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppConstants.grey,
+                            ),
+                            child: const Text(
+                              'Submit',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate() &&
+                                  _dept.isNotEmpty) {
+                                setState(() {
+                                  department = _dept;
+                                  loading = true;
+                                });
+                                try {
+                                  await DatabaseService(uid: user.uid)
+                                      .bookEvent(title, description,
+                                          department, startDate, endDate);
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                } catch (e) {
+                                  print('Could not book event: $e');
+                                } finally {
                                   setState(() {
                                     loading = false;
                                     description = '';
                                   });
-
-                                  if (eventBooked != null) {
-                                    _scaffoldKey.currentState
-                                        .showSnackBar(snackBar);
-                                  } else
-                                    print('could not book event');
                                 }
-                                //                         else{
-                                //                             ScaffoldMessenger.of(context)
-                                // .showSnackBar(SnackBar(content: Text('Please Complete All Fields')));
-                                //                         }
-                              }),
-                          SizedBox(height: 12.0),
+                              }
+                            },
+                          ),
+                          const SizedBox(height: 12.0),
                           Text(
                             error,
                             style: TextStyle(color: Colors.red, fontSize: 14.0),

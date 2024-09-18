@@ -1,101 +1,86 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:remnevents/constants/constants.dart';
-import 'package:remnevents/models/user.dart';
+import 'package:remnevents/models/user.dart' as app_models;
 import 'package:remnevents/services/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
 
   // create user obj based on firebase user
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  app_models.User? _userFromFirebaseUser(firebase_auth.UserCredential userCredential) {
+    return userCredential.user != null ? app_models.User(uid: userCredential.user!.uid) : null;
   }
 
-  // UserDetails _userDetailsFromFirebaseUser(FirebaseUser user) {
-  //   if (user == null) return null;
-  //   else return DatabaseService()
-  // }
-
-  // auth change user stream
-  Stream<User> get user {
-    return _auth.onAuthStateChanged
-        //.map((FirebaseUser user) => _userFromFirebaseUser(user));
-        .map(_userFromFirebaseUser);
+  Stream<app_models.User?> get user {
+    return _auth.authStateChanges()
+        .map((firebaseUser) => firebaseUser != null ? app_models.User(uid: firebaseUser.uid) : null);
   }
-
-  // Stream<UserDetails> get userDetails {
-  //   return _auth.onAuthStateChanged
-  //       //.map((FirebaseUser user) => _userFromFirebaseUser(user));
-  //       .map(_userDetailsFromFirebaseUser);
-  // }
 
   // sign in anon
-  Future signInAnon() async {
+  Future<app_models.User?> signInAnon() async {
     try {
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      AuthResult result = await _auth.signInAnonymously();
-      FirebaseUser user = result.user;
+      firebase_auth.UserCredential result = await _auth.signInAnonymously();
       print(':: auth :: signed in anonymously');
-      sharedPreferences.setString('status', AppConstants.VIEWER);
-      return _userFromFirebaseUser(user);
+      await sharedPreferences.setString('status', AppConstants.VIEWER);
+      return _userFromFirebaseUser(result);
     } catch (e) {
-      print(e.toString());
+      print('Error signing in anonymously: ${e.toString()}');
       return null;
     }
   }
 
   // sign in with email and password
-  Future signInWithEmailAndPassword(String email, String password) async {
+  Future<String?> signInWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      firebase_auth.UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-
-      FirebaseUser user = result.user;
-      return user.uid;
-    } on PlatformException catch (platformError) {} catch (error) {
-      print(error.toString());
+      return result.user?.uid;
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      print('Firebase Auth Error: ${e.code} - ${e.message}');
+      return null;
+    } catch (error) {
+      print('Error signing in: ${error.toString()}');
       return null;
     }
   }
 
   // register with email and password
-  Future registerWithEmailAndPassword(String name, String surname,
+  Future<app_models.User?> registerWithEmailAndPassword(String name, String surname,
       String cellNumber, String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
+      firebase_auth.UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
-
-      await DatabaseService(uid: user.uid)
-          .updateUserDetails(name, surname, cellNumber, email, 'viewer');
-      return _userFromFirebaseUser(user);
+      
+      if (result.user != null) {
+        await DatabaseService(uid: result.user!.uid)
+            .updateUserDetails(name, surname, cellNumber, email, 'viewer');
+      }
+      return _userFromFirebaseUser(result);
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      print('Firebase Auth Error: ${e.code} - ${e.message}');
+      return null;
     } catch (error) {
-      print(error.toString());
+      print('Error registering user: ${error.toString()}');
       return null;
     }
   }
 
   // sign out
-  Future signOut() async {
+  Future<void> signOut() async {
     try {
       final SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      if (await sharedPreferences.remove('uid'))
-        print('Removed uid from sharedPreferences');
-      if (await sharedPreferences.remove('status'))
-        print('Removed status from sharedPreferences');
-      if (await sharedPreferences.remove('name'))
-        print('Removed name from sharedPreferences');
-
-      return await _auth.signOut();
+      await sharedPreferences.remove('uid');
+      await sharedPreferences.remove('status');
+      await sharedPreferences.remove('name');
+      await _auth.signOut();
     } catch (error) {
-      print(error.toString());
-      return null;
+      print('Error signing out: ${error.toString()}');
     }
   }
 }

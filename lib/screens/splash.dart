@@ -3,7 +3,6 @@ import 'package:remnevents/constants/constants.dart';
 import 'package:remnevents/models/user.dart';
 import 'dart:async';
 import 'package:remnevents/screens/home.dart';
-import 'package:remnevents/constants/loading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:remnevents/services/auth.dart';
 import 'package:remnevents/services/database.dart';
@@ -18,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool validated = false;
-  String uid;
+  late String uid;
 
   @override
   void initState() {
@@ -51,8 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
           .then((subscription) async {
         StreamSubscription<UserDetails> sub = subscription;
         sub.onData((userInfo) {
-          if (userInfo.status != null) if (userInfo.status ==
-                  AppConstants.LEADER ||
+          if (userInfo.status == AppConstants.LEADER ||
               userInfo.status == AppConstants.ADMINISTRATOR) {
             setIsAdmin(userInfo.status);
             setIsLeader(userInfo.status);
@@ -65,7 +63,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 userInfo.name);
           }
         });
-      }).catchError((error) => print('::SPLASH:: error refreshing status'));
+      }).catchError((error) {
+        print('::SPLASH:: error refreshing status');
+        return null;
+      });
     } else {
       dynamic anonUser = await _auth.signInAnon();
       print(':: spash :: anonymous user uid ' + anonUser.uid);

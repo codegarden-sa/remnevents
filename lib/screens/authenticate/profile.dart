@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:remnevents/constants/constants.dart';
 import 'package:remnevents/screens/authenticate/authenticate.dart';
 import 'package:provider/provider.dart';
-import 'package:remnevents/models/user.dart';
 import 'package:remnevents/screens/events/list_events.dart';
 import 'package:remnevents/services/auth.dart';
-import 'package:remnevents/services/database.dart';
 import 'package:remnevents/state/app_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,21 +20,20 @@ class _ProfileState extends State<Profile> {
   Future<Map> _retrieveDetails() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    String name = sharedPreferences.getString('name');
-    String status = sharedPreferences.getString('status');
-    String uid = sharedPreferences.getString('uid');
+    String name = sharedPreferences.getString('name') ?? '';
+    String status = sharedPreferences.getString('status') ?? '';
+    String uid = sharedPreferences.getString('uid') ?? '';
     return {'userName': name, 'status': status, 'uid': uid};
   }
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     final isLeader = Provider.of<AppState>(context).isLeader;
     final isAdmin = Provider.of<AppState>(context).isAdmin;
     final setIsLeader =
         Provider.of<AppState>(context, listen: false).setIsLeader;
 
-    if (user == null || !isLeader) {
+    if (!isLeader) {
       return Authenticate();
     } else {
       return SafeArea(
@@ -64,33 +61,30 @@ class _ProfileState extends State<Profile> {
               builder: (context, snapshot) {
                 final userDetails = snapshot.data;
                 if (snapshot.connectionState == ConnectionState.done &&
-                    userDetails['userName'] != null) {
+                    userDetails?['userName'] != null) {
                   print(userDetails);
 
                   return SingleChildScrollView(
                       child: Container(
                     child: Column(
                       children: [
-                        Text('Hi, ' + userDetails['userName'],
+                        Text('Hi, ' + userDetails?['userName'],
                             style: TextStyle(
                                 fontSize: 40, fontWeight: FontWeight.w800)),
                         SizedBox(height: 20.0),
                         isAdmin || isLeader
-                            ? RaisedButton(
-                                color: AppConstants.darkblue,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4))),
-                                child:
-
-                                    // Text('place holder'),
-
-                                    Text(userDetails['status']
-                                            .substring(0, 1)
-                                            .toUpperCase() +
-                                        userDetails['status'].substring(1) +
-                                        ' Events Panel'),
-                                textColor: Colors.white,
+                            ? ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppConstants.darkblue,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                                  ),
+                                ),
+                                child: Text(userDetails?['status']
+                                        ?.substring(0, 1)
+                                        .toUpperCase() +
+                                    userDetails?['status']?.substring(1) +
+                                    ' Events Panel'),
                                 onPressed: () {
                                   if (isAdmin)
                                     Navigator.push(
@@ -109,11 +103,11 @@ class _ProfileState extends State<Profile> {
                                             builder: (context) => ListEvents(
                                                 eventListType:
                                                     AppConstants.LEADER,
-                                                uid: userDetails['uid'],
+                                                uid: userDetails?['uid'],
                                                 listTitle: 'My Events')));
                                 },
                               )
-                            : Text(''),
+                            : SizedBox(),
                         SizedBox(height: 20.0),
                         InkWell(
                           child: Text('Logout'),

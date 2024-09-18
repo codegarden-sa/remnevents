@@ -9,13 +9,14 @@ class DepartmentSelector extends StatelessWidget {
   final List<String> data;
   final String label;
   final Function getDepartmentValue;
-  int departmentIndex;
+  final int departmentIndex;
 
-  DepartmentSelector(
-      {@required this.data,
-      @required this.label,
-      @required this.getDepartmentValue,
-      this.departmentIndex});
+  DepartmentSelector({
+    required this.data,
+    required this.label,
+    required this.getDepartmentValue,
+    required this.departmentIndex,
+  });
 
   @override
   Widget build(BuildContext context) {

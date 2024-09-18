@@ -9,32 +9,47 @@ import 'package:remnevents/services/database.dart';
 import 'package:remnevents/state/app_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  SignIn({required this.toggleView});
 
   @override
   _SignInState createState() => _SignInState();
 }
 
 class _SignInState extends State<SignIn> {
-  final AuthService _auth = AuthService();
-  final _formKey = GlobalKey<FormState>();
-  String error = '';
   bool loading = false;
-
-  // text field state
+  final _formKey = GlobalKey<FormState>();
   String email = '';
   String password = '';
+  final AuthService _auth = AuthService();
+
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
 
   @override
   Widget build(BuildContext context) {
     final setIsLeader =
         Provider.of<AppState>(context, listen: false).setIsLeader;
     final setIsAdmin = Provider.of<AppState>(context, listen: false).setIsAdmin;
-    final setIsViewer =
-        Provider.of<AppState>(context, listen: false).setIsViewer;
+    // Removed unused setIsViewer variable
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(
@@ -78,7 +93,7 @@ class _SignInState extends State<SignIn> {
                         decoration: AppConstants.textInputDecoration
                             .copyWith(hintText: 'email'),
                         validator: (val) =>
-                            val.isEmpty ? 'Enter an email' : null,
+                            val?.isEmpty == true ? 'Enter an email' : null,
                         onChanged: (val) {
                           setState(() => email = val);
                         },
@@ -88,7 +103,7 @@ class _SignInState extends State<SignIn> {
                         obscureText: true,
                         decoration: AppConstants.textInputDecoration
                             .copyWith(hintText: 'password'),
-                        validator: (val) => val.length < 6
+                        validator: (val) => val != null && val.length < 6
                             ? 'Enter a password 6+ chars long'
                             : null,
                         onChanged: (val) {
@@ -96,14 +111,17 @@ class _SignInState extends State<SignIn> {
                         },
                       ),
                       SizedBox(height: 20.0),
-                      RaisedButton(
-                          color: AppConstants.grey,
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                            backgroundColor: AppConstants.grey,
+                          ),
                           child: Text(
                             'Sign In',
                             style: TextStyle(color: Colors.white),
                           ),
                           onPressed: () async {
-                            if (_formKey.currentState.validate()) {
+                            if (_formKey.currentState?.validate() ?? false) {
+
                               setState(() => loading = true);
                               dynamic uid = await _auth
                                   .signInWithEmailAndPassword(email, password);
@@ -132,11 +150,8 @@ class _SignInState extends State<SignIn> {
                                             userInfo.status);
                                     loading = false;
 
-                                    if (userInfo.status != null) if (userInfo
-                                                .status ==
-                                            AppConstants.LEADER ||
-                                        userInfo.status ==
-                                            AppConstants.ADMINISTRATOR) {
+                                    if (userInfo.status == AppConstants.LEADER ||
+                                        userInfo.status == AppConstants.ADMINISTRATOR) {
                                       setIsAdmin(userInfo.status);
                                       setIsLeader(userInfo.status);
                                       // setIsViewer(userInfo.status);
@@ -148,15 +163,20 @@ class _SignInState extends State<SignIn> {
                                                   HomeScreen()));
                                     }
                                   });
-                                }).catchError((error) => print(
-                                    ':: sign in :: error refreshing status from sign in ' +
-                                        error.toString()));
+                                }).catchError((error) {
+                                  print(':: sign in :: error refreshing status from sign in ' + error.toString());
+                                  return null;
+                                });
                               }
                             } else {
                               setState(() => loading = false);
-                              //TODO: include a snackbar to inform the user
-                              print(
-                                  ':: sign in :: error signing in this user, check logs for details ');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Error signing in. Please check your credentials.'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                              print(':: sign in :: error signing in this user, check logs for details ');
                             }
                           }),
                       Padding(

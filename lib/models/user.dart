@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class User {
   final String uid;
 
-  User({this.uid});
+  User({required this.uid});
 }
 
 class UserDetails with ChangeNotifier {
@@ -14,7 +14,14 @@ class UserDetails with ChangeNotifier {
   final String email;
   final String status;
 
-  UserDetails({this.uid, this.name, this.surname, this.cellNumber, this.email, this.status});
+  UserDetails({
+    required this.uid,
+    required this.name,
+    required this.surname,
+    required this.cellNumber,
+    required this.email,
+    required this.status,
+  });
 
 
 }

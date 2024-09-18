@@ -14,21 +14,23 @@ class EventModel {
   final String userId;
   int notificationId;
   int notificationTime;
-
-  EventModel(
-      {this.id,
-      this.title,
-      this.department,
-      this.description,
-      this.startDate,
-      this.endDate,
-      this.startHour,
-      this.endHour,
-      this.status,
-      this.venue,
-      this.createdAt,
-      this.modifiedAt,
-      this.userId});
+  EventModel({
+    required this.id,
+    required this.title,
+    required this.department,
+    required this.description,
+    required this.startDate,
+    required this.endDate,
+    required this.startHour,
+    required this.endHour,
+    required this.status,
+    required this.venue,
+    required this.createdAt,
+    required this.modifiedAt,
+    required this.userId,
+    required this.notificationId,
+    required this.notificationTime,
+  });
 
   // factory EventModel.fromMap(Map data) {
   //   return EventModel(

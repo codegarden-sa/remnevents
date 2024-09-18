@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:date_field/date_field.dart';
-import 'package:remnevents/constants/constants.dart';
 
 class DateTimeFld extends StatefulWidget {
   // DateTimeFld({Key key}) : super(key: key);/
-
-  final Function setDateTime;
-  DateTimeFld({this.setDateTime});
+  final Function(DateTime, DateTime) setDateTime;
+  DateTimeFld({required this.setDateTime});
 
   @override
   _DateTimeFldState createState() => _DateTimeFldState();
 }
 
 class _DateTimeFldState extends State<DateTimeFld> {
-  DateTime selectedDate;
+  DateTime? selectedDate;
 
-  DateTime startDate;
-  DateTime endDate;
+  DateTime? startDate;
+  DateTime? endDate;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,7 @@ class _DateTimeFldState extends State<DateTimeFld> {
                     endDate = date;
                   });
                   if (startDate != null && endDate != null)
-                    widget.setDateTime(startDate, endDate);
+                    widget.setDateTime(startDate!, endDate!);
                   else
                     print('date fields are required');
                 },
