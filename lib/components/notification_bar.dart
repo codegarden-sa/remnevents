@@ -31,7 +31,7 @@ class _NotificationBarState extends State<NotificationBar> {
     tz.initializeTimeZones();
     var initializationSettingsAndroid =
         AndroidInitializationSettings('sda_sandton');
-    var initializationSettingsIOS = DarwinInitializationSettings(
+    var initializationSettingsIOS = IOSInitializationSettings(
         // ... iOS settings
     );
     var initializationSettings = InitializationSettings(
@@ -58,7 +58,7 @@ class _NotificationBarState extends State<NotificationBar> {
         'channel_name',
         'channel_description',
         importance: Importance.high);
-    var iosDetails = const DarwinNotificationDetails();
+    var iosDetails = const IOSNotificationDetails();
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
 
@@ -104,7 +104,7 @@ class _NotificationBarState extends State<NotificationBar> {
             ToggleSwitch(
               minWidth: 60.0,
               initialLabelIndex: getState(widget.event.notificationTime),
-              activeBgColors: [[AppConstants.darkblue]],
+              activeBgColors: [AppConstants.darkblue, AppConstants.darkblue, AppConstants.darkblue],
               activeFgColor: AppConstants.guava,
               inactiveBgColor: Colors.grey.withOpacity(0.7),
               inactiveFgColor: Colors.white,
