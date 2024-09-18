@@ -106,7 +106,7 @@ class _NotificationBarState extends State<NotificationBar> {
               onToggle: (index) async {
                 switch (index) {
                   case 0:
-                    print('it is clicked ...' +
+                    print('it is clicked, to see futher into the code' +
                         widget.event.notificationId.toString());
                     if (widget.event.startDate.isAfter(DateTime.now()) &&
                         widget.event.status == AppConstants.APPROVED) {

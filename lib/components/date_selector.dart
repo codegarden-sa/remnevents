@@ -60,7 +60,6 @@ class DepartmentSelector extends StatelessWidget {
         itemHeight: 64,
         value: value,
         itemBuilder: (context, value) {
-          // print('the value dept: ==> ' + value);
           this.getDepartmentValue(value);
           return Text(value);
         });
