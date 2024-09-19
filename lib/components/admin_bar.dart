@@ -47,7 +47,12 @@ class AdminBar extends StatelessWidget {
             ToggleSwitch(
               minWidth: 60.0,
               initialLabelIndex: getState(event.status),
-              activeBgColors: [AppConstants.darkblue, AppConstants.darkblue, AppConstants.darkblue, AppConstants.darkblue],
+              activeBgColors: [
+                [AppConstants.darkblue],
+                [AppConstants.darkblue],
+                [AppConstants.darkblue],
+                [AppConstants.darkblue]
+              ],
               activeFgColor: AppConstants.guava,
               inactiveBgColor: Colors.grey.withOpacity(0.7),
               inactiveFgColor: Colors.white54,

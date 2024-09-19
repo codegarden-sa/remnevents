@@ -31,7 +31,7 @@ class _NotificationBarState extends State<NotificationBar> {
     tz.initializeTimeZones();
     var initializationSettingsAndroid =
         AndroidInitializationSettings('sda_sandton');
-    var initializationSettingsIOS = IOSInitializationSettings(
+    var initializationSettingsIOS = DarwinInitializationSettings(
         // ... iOS settings
     );
     var initializationSettings = InitializationSettings(
@@ -56,9 +56,9 @@ class _NotificationBarState extends State<NotificationBar> {
     var androidDetails = AndroidNotificationDetails(
         'channel_id',
         'channel_name',
-        'channel_description',
+        channelDescription: 'channel_description',
         importance: Importance.high);
-    var iosDetails = const IOSNotificationDetails();
+    var iosDetails = const DarwinNotificationDetails();
     var generalNotificationDetails =
         NotificationDetails(android: androidDetails, iOS: iosDetails);
 
@@ -68,7 +68,7 @@ class _NotificationBarState extends State<NotificationBar> {
         widget.event.description,
         tz.TZDateTime.from(_scheduledDateTime, tz.local),
         generalNotificationDetails,
-        androidAllowWhileIdle: true,
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
@@ -104,7 +104,11 @@ class _NotificationBarState extends State<NotificationBar> {
             ToggleSwitch(
               minWidth: 60.0,
               initialLabelIndex: getState(widget.event.notificationTime),
-              activeBgColors: [AppConstants.darkblue, AppConstants.darkblue, AppConstants.darkblue],
+              activeBgColors: [
+                [AppConstants.darkblue],
+                [AppConstants.darkblue],
+                [AppConstants.darkblue]
+              ],
               activeFgColor: AppConstants.guava,
               inactiveBgColor: Colors.grey.withOpacity(0.7),
               inactiveFgColor: Colors.white,
